@@ -18,8 +18,5 @@ int main(){
     for (auto &i : a)
         for (auto j : i)
             cout << "array index:" << &i - &a[0] << "  Entry " << j << endl;
-    //for (int i = 0; i < a.size(); i++) {
-        //std::cout << a.at(i) << ' ';
-    //}
 
 }
