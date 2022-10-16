@@ -1,5 +1,8 @@
 #include<stdio.h>
 #include<stack>
+#include<typeinfo>
+#include<iostream>
+
 using namespace std;
 #define WALL 0
 #define PATH 1
@@ -26,27 +29,42 @@ public:
         array = new int*[rows];
         for(int i = 0; i<rows;i++){
             array[i] = new int[columns];
+            
         }
-        GenerateTableDFS(Position(columns/2,rows/2));
+        GenerateTableDFS(Position(columns,rows));
     }
     void printTable(){
         for(int i = 0; i< ROWS; i++){
             for (int j = 0; j < COLUMNS; j++){
+                // if(i == 0 || j == ROWS-1 || j == 0 || i == ROWS-1){
+                //     array[i][j] = PATH;
+                // }
                 printf("%d",array[i][j]);
             }
             printf("\n");
         }
     }
     void GenerateTableDFS(Position startPosition){
-        stack<Position> pila;
-        pila.push(startPosition);
+        stack<Position> stack;
+        stack.push(startPosition);
         array[startPosition.y][startPosition.x] = PATH;
-        while(!pila.empty()){
-            Position currentPosition = pila.top();
-            //buscar vecinos
-            //push vecino 1
-            //if not vecinos pop
+        printStack(stack);
+        // while(!pila.empty()){
+        //     Position currentPosition = pila.top();
+        //     //buscar vecinos
+        //     //push vecino 1
+        //     //if not vecinos pop
 
+        // }
+    }
+    void printStack(stack<Position> stack){
+        while (!stack.empty()){
+        
+            stack.pop();
         }
+        {
+            /* code */
+        }
+        
     }
 };

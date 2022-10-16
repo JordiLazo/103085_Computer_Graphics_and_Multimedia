@@ -1,4 +1,3 @@
 .vscode/*
 #Ignore c++ output files
-*
-!*.c
+# Unignore all with extensions

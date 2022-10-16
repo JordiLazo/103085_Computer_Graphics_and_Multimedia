@@ -5,4 +5,4 @@ dfs: pacman.cpp
 	$(CC) pacman.cpp -o dfs -lglut -lGLU -lGL -lm
 
 clean:
-	rm chess
+	rm pacman
