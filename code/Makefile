@@ -1,8 +1,8 @@
-CC=gcc
+CC=g++
 CFLAGS=-I.
 
-dfs: dfs.cpp
-	$(CC) dfs.cpp -o dfs -lglut -lGLU -lGL -lm
+dfs: pacman.cpp
+	$(CC) pacman.cpp -o dfs -lglut -lGLU -lGL -lm
 
 clean:
 	rm chess

@@ -1,0 +1,4 @@
+.vscode/*
+#Ignore c++ output files
+*
+!*.c
