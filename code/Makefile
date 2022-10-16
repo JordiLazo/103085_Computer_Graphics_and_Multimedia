@@ -1,2 +1,8 @@
-dfs: dfs_procedural.cpp
-	gcc dfs_procedural.cpp -o dfs
+CC=gcc
+CFLAGS=-I.
+
+dfs: dfs.cpp
+	$(CC) dfs.cpp -o dfs -lglut -lGLU -lGL -lm
+
+clean:
+	rm chess
