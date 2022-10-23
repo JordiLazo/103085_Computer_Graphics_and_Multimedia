@@ -2,6 +2,7 @@
 #include<stack>
 #include<typeinfo>
 #include<iostream>
+#include<vector>
 
 using namespace std;
 #define WALL 0
@@ -29,9 +30,11 @@ public:
         array = new int*[rows];
         for(int i = 0; i<rows;i++){
             array[i] = new int[columns];
-            
         }
-        GenerateTableDFS(Position(columns,rows));
+        srand(clock());
+        GenerateBaseMap();
+        GenerateTableDFS(Position(columns-1,rows/2));
+        DuplicateMap();
     }
     void printTable(){
         for(int i = 0; i< ROWS; i++){
@@ -48,14 +51,24 @@ public:
         stack<Position> stack;
         stack.push(startPosition);
         array[startPosition.y][startPosition.x] = PATH;
-        printStack(stack);
-        // while(!pila.empty()){
-        //     Position currentPosition = pila.top();
-        //     //buscar vecinos
-        //     //push vecino 1
+        while(!stack.empty()){
+            Position currentPosition = stack.top();
+            vector<Position> vectorVecinos = getVecinos(currentPosition);
+            if(vectorVecinos.size()== 0){
+                stack.pop();
+            }else{
+                int choice = rand()%vectorVecinos.size();
+                Position randomPosition = vectorVecinos[choice];
+                array[randomPosition.y][randomPosition.x] = PATH;
+                Position middlePos = middlePosition(currentPosition,randomPosition);
+                array[middlePos.y][middlePos.x] = PATH;
+                stack.push(randomPosition);
+
+            }
+            
         //     //if not vecinos pop
 
-        // }
+        }
     }
     void printStack(stack<Position> stack){
         while (!stack.empty()){
@@ -63,4 +76,58 @@ public:
             stack.pop();
         }
     }
+
+    vector<Position> getVecinos (Position currentPosition){
+        vector<Position> vectorvecinos;
+        for( int i = -1; i <= 1;i++ ){
+            if(i != 0){
+                Position position1 = Position(2*i+ currentPosition.x,currentPosition.y);
+                Position postion2 = Position(currentPosition.x,2*i+ currentPosition.y);
+                if (validateVecinos(position1)){
+                    vectorvecinos.push_back(position1);
+
+                }
+                if (validateVecinos(postion2)){
+                    vectorvecinos.push_back(postion2);
+                }
+                
+            }
+        }
+        return vectorvecinos;
+    }
+
+    bool validateVecinos(Position position){
+        if(position.x <= 0 || position.y <= 0){
+            return false;
+        }
+        if(position.x >= COLUMNS-1 || position.y >= ROWS-1){
+            return false;
+        }if(array[position.y][position.x] == PATH){
+            return false;
+        }
+        return true;
+    }
+    Position middlePosition(Position sourcePosition, Position destinationPosition){
+        int x = (destinationPosition.x + sourcePosition.x) /2 ;
+        int y = (destinationPosition.y + sourcePosition.y) /2 ;
+        return Position(x,y);
+    }
+
+    void GenerateBaseMap(){
+        
+    }
+    void DuplicateMap(){
+        COLUMNS = COLUMNS*2;
+        int *row;
+        for(int i = 0; i<ROWS;i++){
+            row = array[i];
+            array[i] = new int[COLUMNS];
+            for (int j = 0; j<COLUMNS/2;j++){
+                array[i][j] = row[j];
+                array[i][COLUMNS-1-j] = row[j];
+            }
+        }
+
+    }
+    
 };
