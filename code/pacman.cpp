@@ -2,8 +2,8 @@
 #include<iostream>
 #include"map.h"
 
-#define COLUMNS 12
-#define ROWS 12
+#define COLUMNS 11
+#define ROWS 11
 
 
 #define WIDTH 600
@@ -42,14 +42,13 @@ void display(){
 
     for(i = 0; i < ROWS; i++){
         for(j = 0; j < COLUMNS; j++){
-            glColor3f(0.8,0.8,0.8);
-            glBegin(GL_QUADS);
-            glVertex2i(x,y);
-            glVertex2i(x,y+height);
-            glVertex2i(x+width, y+height);
-            glVertex2i(x+width, y);
-            glEnd();
-            
+            // glColor3f(0.8,0.8,0.8);
+            // glBegin(GL_QUADS);
+            // glVertex2i(x,y);
+            // glVertex2i(x,y+height);
+            // glVertex2i(x+width, y+height);
+            // glVertex2i(x+width, y);
+            // glEnd();
         }
   	}
 
