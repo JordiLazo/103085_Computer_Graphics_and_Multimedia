@@ -114,7 +114,18 @@ public:
     }
 
     void GenerateBaseMap(){
-        
+        for(int i = 0; i< ROWS; i++){
+            for (int j = 0; j < COLUMNS; j++){
+                array[4][5] = 3;
+                array[4][6] = 3;
+                array[4][7] = 3;
+                array[4][8] = 3;
+                array[4][9] = 3;
+                array[4][10] = 3;
+
+
+            }
+        }
     }
     void DuplicateMap(){
         COLUMNS = COLUMNS*2;

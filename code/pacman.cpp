@@ -2,7 +2,7 @@
 #include<iostream>
 #include"map.h"
 
-#define COLUMNS 11
+#define COLUMNS 12
 #define ROWS 11
 
 
