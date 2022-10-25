@@ -32,8 +32,8 @@ public:
             array[i] = new int[columns];
         }
         srand(clock());
-        GenerateBaseMap();
-        GenerateTableDFS(Position(columns-1,rows/2));
+        Position start = GenerateBaseMap();
+        GenerateTableDFS(start);
         DuplicateMap();
     }
     void printTable(){
@@ -104,6 +104,8 @@ public:
             return false;
         }if(array[position.y][position.x] == PATH){
             return false;
+        }if(array[position.y][position.x] == CENTERWALL){
+            return false;
         }
         return true;
     }
@@ -113,19 +115,22 @@ public:
         return Position(x,y);
     }
 
-    void GenerateBaseMap(){
-        for(int i = 0; i< ROWS; i++){
-            for (int j = 0; j < COLUMNS; j++){
-                array[4][5] = 3;
-                array[4][6] = 3;
-                array[4][7] = 3;
-                array[4][8] = 3;
-                array[4][9] = 3;
-                array[4][10] = 3;
-
-
+    Position GenerateBaseMap(){
+        int beginColum = COLUMNS-1;
+        int beginRows = ROWS/2;
+        for(int i = beginRows-3; i<= beginRows+3; i++){
+            for (int j = beginColum ; j >= beginColum-4; j--){
+                if(i== beginRows-3 || i==beginRows+3){
+                array[i][j] = CENTERWALL;
+                }else{
+                  array[i][j] = PATH;  
+                }
             }
+            array[i][beginColum-4] = CENTERWALL;
         }
+        array[beginRows-3][beginColum] = PATH;
+
+        return Position(beginColum,beginRows-4);
     }
     void DuplicateMap(){
         COLUMNS = COLUMNS*2;
