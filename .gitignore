@@ -1,3 +1,5 @@
 .vscode/*
+*.o
+.DS_Store
 #Ignore c++ output files
 # Unignore all with extensions
