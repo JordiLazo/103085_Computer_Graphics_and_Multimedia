@@ -19,41 +19,38 @@ class Position{
     }
 };
 
-class Table{
+class GenerateMap{
 public:
-    int COLUMNS;
-    int ROWS;
+    int columns;
+    int rows;
     int **array;
-    Table(int columns, int rows){
-        COLUMNS = columns;
-        ROWS = rows;
+    GenerateMap(int columnsMap, int rowsMap){
+        this-> columns = columnsMap;
+        this-> rows = rowsMap;
         array = new int*[rows];
-        for(int i = 0; i<rows;i++){
-            array[i] = new int[columns];
+        for(int i = 0; i<rowsMap;i++){
+            array[i] = new int[columnsMap];
         }
         srand(clock());
         Position start = GenerateBaseMap();
-        GenerateTableDFS(start);
+        GenerateMapDFS(start);
         DuplicateMap();
     }
     void printTable(){
-        for(int i = 0; i< ROWS; i++){
-            for (int j = 0; j < COLUMNS; j++){
-                // if(i == 0 || j == ROWS-1 || j == 0 || i == ROWS-1){
-                //     array[i][j] = PATH;
-                // }
+        for(int i = 0; i< rows; i++){
+            for (int j = 0; j < columns; j++){
                 printf("%d",array[i][j]);
             }
             printf("\n");
         }
     }
-    void GenerateTableDFS(Position startPosition){
+    void GenerateMapDFS(Position startPosition){
         stack<Position> stack;
         stack.push(startPosition);
         array[startPosition.y][startPosition.x] = PATH;
         while(!stack.empty()){
             Position currentPosition = stack.top();
-            vector<Position> vectorVecinos = getVecinos(currentPosition);
+            vector<Position> vectorVecinos = getCloseCells(currentPosition);
             if(vectorVecinos.size()== 0){
                 stack.pop();
             }else{
@@ -66,28 +63,20 @@ public:
 
             }
             
-        //     //if not vecinos pop
-
-        }
-    }
-    void printStack(stack<Position> stack){
-        while (!stack.empty()){
-        
-            stack.pop();
         }
     }
 
-    vector<Position> getVecinos (Position currentPosition){
+    vector<Position> getCloseCells (Position currentPosition){
         vector<Position> vectorvecinos;
         for( int i = -1; i <= 1;i++ ){
             if(i != 0){
                 Position position1 = Position(2*i+ currentPosition.x,currentPosition.y);
                 Position postion2 = Position(currentPosition.x,2*i+ currentPosition.y);
-                if (validateVecinos(position1)){
+                if (validateCell(position1)){
                     vectorvecinos.push_back(position1);
 
                 }
-                if (validateVecinos(postion2)){
+                if (validateCell(postion2)){
                     vectorvecinos.push_back(postion2);
                 }
                 
@@ -96,11 +85,11 @@ public:
         return vectorvecinos;
     }
 
-    bool validateVecinos(Position position){
+    bool validateCell(Position position){
         if(position.x <= 0 || position.y <= 0){
             return false;
         }
-        if(position.x >= COLUMNS-1 || position.y >= ROWS-1){
+        if(position.x >= columns-1 || position.y >= rows-1){
             return false;
         }if(array[position.y][position.x] == PATH){
             return false;
@@ -116,8 +105,8 @@ public:
     }
 
     Position GenerateBaseMap(){
-        int beginColum = COLUMNS-1;
-        int beginRows = ROWS/2;
+        int beginColum = columns-1;
+        int beginRows = rows/2;
         for(int i = beginRows-3; i<= beginRows+3; i++){
             for (int j = beginColum ; j >= beginColum-4; j--){
                 if(i== beginRows-3 || i==beginRows+3){
@@ -133,14 +122,14 @@ public:
         return Position(beginColum,beginRows-4);
     }
     void DuplicateMap(){
-        COLUMNS = COLUMNS*2;
+        columns = columns*2;
         int *row;
-        for(int i = 0; i<ROWS;i++){
+        for(int i = 0; i<rows;i++){
             row = array[i];
-            array[i] = new int[COLUMNS];
-            for (int j = 0; j<COLUMNS/2;j++){
+            array[i] = new int[columns];
+            for (int j = 0; j<columns/2;j++){
                 array[i][j] = row[j];
-                array[i][COLUMNS-1-j] = row[j];
+                array[i][columns-1-j] = row[j];
             }
         }
 
