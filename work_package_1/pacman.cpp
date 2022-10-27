@@ -2,8 +2,8 @@
 #include<iostream>
 #include"generateMap.h"
 
-#define COLUMNS 14
-#define ROWS 13
+#define COLUMNS 53
+#define ROWS 52
 #define WIDTH 1000
 #define HEIGHT 700
 
