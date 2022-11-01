@@ -2,9 +2,9 @@
 #include<iostream>
 #include"generateMap.h"
 
-#define COLUMNS 53
-#define ROWS 52
-#define WIDTH 1000
+#define COLUMNS 22
+#define ROWS 21
+#define WIDTH 1200
 #define HEIGHT 700
 
 void display();
@@ -12,9 +12,9 @@ void display();
 GenerateMap *map;
 
 int main(int argc, char *argv[]) {
-    GenerateMap arrayMap(COLUMNS,ROWS);
-    arrayMap.printTable();
-    map = &arrayMap;
+    GenerateMap newMap(COLUMNS,ROWS);
+    newMap.printTable();
+    map = &newMap;
     
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
@@ -39,7 +39,6 @@ void display(){
     for(int i = 0; i < map->rows; i++){
         for(int j = 0; j < map->columns; j++){
             if(map->array[i][j] == PATH){
-                glColor3f(0.8,0.8,0.8);
                 glColor3f(0.8,0.8,0.8);
                 glBegin(GL_QUADS);
                 glVertex2i(j*WIDTH/map->columns,i*HEIGHT/map->rows);
