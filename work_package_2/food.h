@@ -1,9 +1,9 @@
-
 #include<stdio.h>
 #include<stack>
 #include<typeinfo>
 #include<iostream>
 #include<vector>
+
 
 using namespace std;
 #define WALL 0

@@ -1,6 +1,5 @@
 #include<GL/glut.h>
 #include<iostream>
-#include"generateMap.h"
 #include"draw.h"
 
 #define COLUMNS 22
