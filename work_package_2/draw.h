@@ -14,3 +14,10 @@ using namespace std;
 
 void drawVector(int width, int height, GenerateMap map);
 void set_3f_color(int color);
+void draw_rectangle(int x, int y, int width, int height);
+void draw_square(int x, int y, int size);
+void draw_squaref(float x, float y, float size);
+
+void set_3f_color(int color);
+
+double scale(int input);

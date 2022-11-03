@@ -2,18 +2,15 @@
 #include<iostream>
 #include<vector>
 #include"food.h"
+#include"draw.h"
 
-Food::Food(){};
-void Food::setPosition(int x,int y){
+Food::Food(float x, float y, float pixels){
     this->x = x;
-    this->y = y;
-}
+    this->y = x;
+    this->pixels = pixels;
+
+};
 void Food::draw(){
-    glColor3f(1,1,1);
-    glBegin(GL_QUADS);
-    glVertex2i(x-6,y-6);
-    glVertex2i(x+6,y-6);
-    glVertex2i(x+6,y+6);
-    glVertex2i(x-6,y+6);
-    glEnd();
+    set_3f_color(RED);
+    draw_squaref(x, y, pixels);
 }

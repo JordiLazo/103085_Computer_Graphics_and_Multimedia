@@ -12,9 +12,10 @@ using namespace std;
 
 class Food{
     public:
-    int x,y;
-    int state;
-    Food();
-    void setPosition(int x,int y);
-    void draw();
+        Food(float x, float y, float pixels);
+        void setPosition(int x,int y);
+        void draw();
+        float x;
+        float y;
+        float pixels;
 };
