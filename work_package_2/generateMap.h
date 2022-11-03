@@ -3,6 +3,7 @@
 #include<typeinfo>
 #include<iostream>
 #include<vector>
+#include"draw.h"
 
 using namespace std;
 #define WALL 0
@@ -37,6 +38,18 @@ public:
         createNewPaths();
         duplicateMap();
     }
+    void draw(int pixels){
+        set_3f_color(RED);
+        // Print corridor colors
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j < columns; j++){
+                if(this->array[i][j] == PATH){
+                    draw_square(j*pixels, i*pixels, pixels);
+                }
+            }
+        }
+    }
+
     void printTable(){
         for(int i = 0; i< rows; i++){
             for (int j = 0; j < columns; j++){

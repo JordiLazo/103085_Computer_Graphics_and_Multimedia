@@ -2,11 +2,12 @@
 #include<iostream>
 #include"draw.h"
 #include"food.h"
+#include"generateMap.h"
 #include<list>
 
-#define COLUMNS 22
-#define ROWS 21
-#define WIDTH 1200
+#define COLUMNS 40
+#define ROWS 40
+#define WIDTH 1400
 #define HEIGHT 700
 
 
@@ -20,7 +21,8 @@ void display();
 GenerateMap *map;
 
 int main(int argc, char *argv[]) {
-    pixels = min(WIDTH/COLUMNS,HEIGHT/ROWS);
+    
+    
     GenerateMap newMap(COLUMNS,ROWS);
     newMap.printTable();
     map = &newMap;
@@ -28,6 +30,8 @@ int main(int argc, char *argv[]) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowPosition(50,50);
+    pixels = min(WIDTH/COLUMNS, HEIGHT/ROWS);
+    printf("pixels:%d\n",pixels);
     putFood();
 
     glutInitWindowSize(WIDTH, HEIGHT);
@@ -45,8 +49,8 @@ int main(int argc, char *argv[]) {
 void display(){
     glClearColor(0.2,0.2,0.2,0.0);
     glClear(GL_COLOR_BUFFER_BIT);
+    map->draw(pixels);
     drawFood();
-    drawVector(WIDTH,HEIGHT,*map);
     
     glutSwapBuffers();
 
@@ -62,15 +66,15 @@ void putFood(){
         for (int j=0; j < map->columns; j++) {
             if(map->array[i][j] == PATH){
                 // calculate cell  position
-                float cell_origin_x = j * pixels;
-                float cell_origin_y = i * pixels;
+                float cell_origin_j = j * pixels;
+                float cell_origin_i = i * pixels;
                 // calculate cell center
                 float center_d = pixels / 2;
-                float food_d = pixels/2;
+                float food_d = foodSize/2;
                 // Calculate food cosition
-                float food_x = cell_origin_x + center_d - food_d;
-                float food_y = cell_origin_y + center_d - food_d;
-                foodList.push_back(Food(food_x, food_y, foodSize));
+                float food_j = cell_origin_j + center_d - food_d;
+                float food_i = cell_origin_i + center_d - food_d;
+                foodList.push_back(Food(food_j, food_i, foodSize));
             }
         }
     }

@@ -1,4 +1,3 @@
-#include"generateMap.h"
 using namespace std;
 
 #define BLACK 0
@@ -12,8 +11,6 @@ using namespace std;
 #define BLUE 8
 #define COOL_BLUE 9
 
-void drawVector(int width, int height, GenerateMap map);
-void set_3f_color(int color);
 void draw_rectangle(int x, int y, int width, int height);
 void draw_square(int x, int y, int size);
 void draw_squaref(float x, float y, float size);

@@ -4,13 +4,13 @@
 #include"food.h"
 #include"draw.h"
 
-Food::Food(float x, float y, float pixels){
-    this->x = x;
-    this->y = x;
+Food::Food(float j, float i, float pixels){
+    this->j = j;
+    this->i = i;
     this->pixels = pixels;
 
 };
 void Food::draw(){
-    set_3f_color(RED);
-    draw_squaref(x, y, pixels);
+    set_3f_color(GREEN);
+    draw_squaref(j, i, pixels);
 }

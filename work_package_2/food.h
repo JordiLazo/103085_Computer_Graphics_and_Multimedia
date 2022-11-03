@@ -12,10 +12,13 @@ using namespace std;
 
 class Food{
     public:
-        Food(float x, float y, float pixels);
-        void setPosition(int x,int y);
+        Food(float j, float i, float pixels);
         void draw();
-        float x;
-        float y;
+        float j;
+        float i;
         float pixels;
+        bool operator == (const Food& food) const { 
+            return j == food.j && i == food.i && pixels==food.pixels;
+        }
+        bool operator != (const Food& food) const { return !operator==(food); }
 };
