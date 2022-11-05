@@ -7,6 +7,7 @@ using namespace std;
 #define WHITE "WHITE"
 #define RED "RED"
 #define BLUE "BLUE"
+#define YELLOW "YELLOW"
 #define PI 3.14
 
 void drawSquarePixel(int x, int y, int size);

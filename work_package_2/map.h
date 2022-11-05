@@ -6,277 +6,43 @@
 #include<list>
 #include"draw.h"
 #include"food.h"
+#include"position.h"
 
 using namespace std;
 #define WALL 0
 #define PATH 1
 #define CENTERWALL 2
-list<Food> foodList;
 
-class Position{
-    public:
-    int x;
-    int y;
-    Position(int x, int y){
-        this-> x = x;
-        this-> y = y;
-    }
-};
+
+#ifndef MAP
+#define MAP
 
 class Map{
 public:
+//-----ATTRIBUTES-----//
     int columns;
     int rows;
     int **array;
-    Map(int columnsMap, int rowsMap){
-        this-> columns = columnsMap;
-        this-> rows = rowsMap;
-        array = new int*[rows];
-        for(int i = 0; i<rowsMap;i++){
-            array[i] = new int[columnsMap];
-        }
-        srand(clock());
-        Position start = generateBaseMap();
-        generateMapDFS(start);
-        createNewPaths();
-        duplicateMap();
-    }
-    
-    void drawMap(int pixelSize){
-        for(int i = 0; i < rows; i++){
-            for(int j = 0; j < columns; j++){
-                if(this->array[i][j] == PATH){
-                    setColorPixel("WHITE");
-                    drawSquarePixel(j*pixelSize, i*pixelSize, pixelSize);
-                }
-                if(this->array[i][j] == WALL){
-                    setColorPixel("BLUE");
-                    drawSquarePixel(j*pixelSize, i*pixelSize, pixelSize);
-                }
-                if(this->array[i][j] == CENTERWALL){
-                    setColorPixel("BLACK");
-                    drawSquarePixel(j*pixelSize, i*pixelSize, pixelSize);
-                }
-            }
-        }
-    }
-    void drawFood(int pixelSize){
-        float foodSize = pixelSize/4;//pixels foodSize
-        for(int i = 0; i < rows; i++){
-            for(int j = 0; j < columns; j++){
-                if(this->array[i][j] == PATH){
-                // calculate cell  position
-                float cell_origin_j = j * pixelSize;
-                printf("CELL ORIGIN J : %f\n",cell_origin_j);
-                
-                float cell_origin_i = i * pixelSize;
-                printf("CELL ORIGIN I: %f\n",cell_origin_i);
-                // calculate cell center
-                float center_d = pixelSize / 2;
-                float food_d = foodSize/2;
-                // Calculate food cosition
-                float food_j = cell_origin_j + center_d - food_d;
-                float food_i = cell_origin_i + center_d - food_d;
-                foodList.push_back(Food(food_j, food_i, foodSize));
-                }
-            }
-        }
-        list<Food>::iterator food;
-        for (food = foodList.begin(); food != foodList.end(); ++food){
-            setColorPixel("RED");
-            drawCirclePixel(food->j, food->i, foodSize);
-        }
-}
-
-    void printTable(){
-        for(int i = 0; i< rows; i++){
-            for (int j = 0; j < columns; j++){
-                printf("%d",array[i][j]);
-            }
-            printf("\n");
-        }
-    }
-
-    void generateMapDFS(Position startPosition){
-        stack<Position> stack;
-        stack.push(startPosition);
-        array[startPosition.y][startPosition.x] = PATH;
-        while(!stack.empty()){
-            Position currentPosition = stack.top();
-            vector<Position> neighborsVector = neighborsToJump(currentPosition);
-            if(neighborsVector.size()== 0){
-                stack.pop();
-            }else{
-                int choice = rand()%neighborsVector.size();
-                Position randomPosition = neighborsVector[choice];
-                array[randomPosition.y][randomPosition.x] = PATH;
-                Position middlePos = middlePosition(currentPosition,randomPosition);
-                array[middlePos.y][middlePos.x] = PATH;
-                stack.push(randomPosition);
-
-            }
-            
-        }
-    }
-
-    vector<Position> neighborsToJump (Position currentPosition){
-        vector<Position> jumpVector;
-        for( int i = -1; i <= 1;i++ ){
-            if(i != 0){
-                Position position1 = Position(2*i+ currentPosition.x,currentPosition.y);
-                Position postion2 = Position(currentPosition.x,2*i+ currentPosition.y);
-                if (validateCell(position1,false)){
-                    jumpVector.push_back(position1);
-
-                }
-                if (validateCell(postion2,false)){
-                    jumpVector.push_back(postion2);
-                }
-                
-            }
-        }
-        return jumpVector;
-    }
-
-    bool validateCell(Position position, bool ignoreCellVisited){
-        if(position.x <= 0 || position.y <= 0){
-            return false;
-        }
-        if(position.x >= columns-1 || position.y >= rows-1){
-            return false;
-        }
-        if(!ignoreCellVisited && array[position.y][position.x] == PATH){
-            return false;
-        }if(array[position.y][position.x] == CENTERWALL){
-            return false;
-        }
-        return true;
-    }
-    Position middlePosition(Position sourcePosition, Position destinationPosition){
-        int x = (destinationPosition.x + sourcePosition.x) /2 ;
-        int y = (destinationPosition.y + sourcePosition.y) /2 ;
-        return Position(x,y);
-    }
-
-    Position generateBaseMap(){
-        int beginColum = columns-1;
-        int beginRows = rows/2;
-        int rowWidthCenterWall = 4;
-        int rowLongCenterWall = 2;
-        for(int i = beginRows-rowLongCenterWall; i<= beginRows+rowLongCenterWall; i++){
-            for (int j = beginColum ; j >= beginColum-rowWidthCenterWall; j--){
-                if(i== beginRows-rowLongCenterWall || i==beginRows+rowLongCenterWall){
-                array[i][j] = CENTERWALL;
-                }else{
-                  array[i][j] = PATH;  
-                }
-            }
-            array[i][beginColum-rowWidthCenterWall] = CENTERWALL;
-        }
-        array[beginRows-rowLongCenterWall][beginColum] = PATH;
-
-        return Position(beginColum,beginRows-(rowLongCenterWall+1));
-    }
-    void duplicateMap(){
-        columns = columns*2;
-        int *row;
-        for(int i = 0; i<rows;i++){
-            row = array[i];
-            array[i] = new int[columns];
-            for (int j = 0; j<columns/2;j++){
-                array[i][j] = row[j];
-                array[i][columns-1-j] = row[j];
-            }
-        }
-
-    }
-    void createNewPaths(){
-        vector<Position> possiblePathsVector;
-        vector<Position> positionsToBreak;
-        for(int i = 1; i< rows-2; i++){
-            for (int j = 1; j < columns-2; j++){
-                if(array[i][j] == PATH){
-                    possiblePathsVector = getAdjacentCells(Position(j,i));
-                    if(countPossiblePaths(possiblePathsVector) < 2){
-                        possiblePathsVector = positionsToJump(Position(j,i));
-                        Position newPos = jumpRandomCell(possiblePathsVector,Position(j,i));
-                        positionsToBreak.push_back(newPos);
-                    }
-                }
-            }
-        }
-        int vectorSize = positionsToBreak.size();
-        for(int i = 0; i < vectorSize; i++){
-            Position destroyPosition = positionsToBreak[i];
-            array[destroyPosition.y][destroyPosition.x] = PATH;
-        }
-    }
-
-    vector<Position> getAdjacentCells (Position currentPosition){
-        vector<Position> neighborsVector;
-        for( int i = -1; i <= 1;i++ ){
-            if(i != 0){
-                Position position1 = Position(i+ currentPosition.x,currentPosition.y);
-                Position position2 = Position(currentPosition.x,i+ currentPosition.y);
-                if (validateCell(position1,true)){
-                    neighborsVector.push_back(position1);
-
-                }
-                if (validateCell(position2,true)){
-                    neighborsVector.push_back(position2);
-                }
-                
-            }
-        }
-        return neighborsVector;
-    }
-
-    vector<Position> positionsToJump (Position currentPosition){
-        vector<Position> jumpVector;
-        for( int i = -1; i <= 1;i++ ){
-            if(i != 0){
-                Position position1 = Position(2*i+ currentPosition.x,currentPosition.y);
-                Position postion2 = Position(currentPosition.x,2*i+ currentPosition.y);
-                if (validateCell(position1,true)){
-                    jumpVector.push_back(position1);
-
-                }
-                if (validateCell(postion2,true)){
-                    jumpVector.push_back(postion2);
-                }
-                
-            }
-        }
-        return jumpVector;
-    }
-
-    int countPossiblePaths(vector<Position> vector){
-        int counter = 0;
-        int vectorSize = (int)vector.size();
-        for(int i = 0; i<vectorSize; i++){
-            if(array[vector[i].y][vector[i].x]== PATH){
-                counter++;
-            }
-        }
-        return counter;
-    }
-
-    Position jumpRandomCell(vector<Position> vectorClosedPaths,Position position){
-        vector<Position> vectorvecinos;
-        int vectorSize = (int)vectorClosedPaths.size();
-        for(int i = 0; i<vectorSize; i++){
-            if(array[vectorClosedPaths[i].y][vectorClosedPaths[i].x]== PATH){
-                Position middlePos = middlePosition(position,vectorClosedPaths[i]);
-                if(array[middlePos.y][middlePos.x] != PATH && array[middlePos.y][middlePos.x] != CENTERWALL){
-                    vectorvecinos.push_back(middlePos);
-                }
-            }
-        }
-        if(vectorvecinos.size()!= 0){
-            int choice = rand()%vectorvecinos.size();
-            Position newPath = vectorvecinos[choice];
-            return newPath;
-        }
-        return Position(-1,0);
-    }
+    int pixelSize;
+    list<Food> foodList;
+//-----FUNCTIONS-----//
+    Map();
+    Map(int columnsMap, int rowsMap);
+    void generateMap(int columnsMap, int rowsMap);
+    void drawMap(int pixelSize);
+    void drawFood(int pixelSize);
+    bool validateCell(Position position, bool ignoreCellVisited);
+    void printMap();
+    void generateMapDFS(Position startPosition);
+    void duplicateMap();
+    void createNewPaths();
+    int countPossiblePaths(vector<Position> vector);
+    Position startPosition();
+    vector<Position> neighborsToJump (Position currentPosition);
+    Position middlePosition(Position sourcePosition, Position destinationPosition);
+    Position generateBaseMap();
+    vector<Position> getAdjacentCells (Position currentPosition);
+    vector<Position> positionsToJump (Position currentPosition);
+    Position jumpRandomCell(vector<Position> vectorClosedPaths,Position position);
 };
+#endif

@@ -1,4 +1,5 @@
-#include"draw.h"
+#ifndef FOOD
+#define FOOD
 
 class Food{
     public:
@@ -7,3 +8,4 @@ class Food{
         float i;
         float pixelSize;
 };
+#endif
