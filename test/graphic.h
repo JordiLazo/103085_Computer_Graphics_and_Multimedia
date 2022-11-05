@@ -12,9 +12,9 @@ using namespace std;
 #define COOL_BLUE 9
 
 void draw_rectangle(int x, int y, int width, int height);
-void draw_square(int x, int y, int size);
+void drawSquarePixel(int x, int y, int size);
 void draw_squaref(float x, float y, float size);
 
-void set_3f_color(int color);
+void setColorPixel(int color);
 
 double scale(int input);

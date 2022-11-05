@@ -3,12 +3,15 @@
 #include<typeinfo>
 #include<iostream>
 #include<vector>
+#include<list>
 #include"draw.h"
+#include"food.h"
 
 using namespace std;
 #define WALL 0
 #define PATH 1
 #define CENTERWALL 2
+list<Food> foodList;
 
 class Position{
     public:
@@ -20,12 +23,12 @@ class Position{
     }
 };
 
-class GenerateMap{
+class Map{
 public:
     int columns;
     int rows;
     int **array;
-    GenerateMap(int columnsMap, int rowsMap){
+    Map(int columnsMap, int rowsMap){
         this-> columns = columnsMap;
         this-> rows = rowsMap;
         array = new int*[rows];
@@ -38,17 +41,52 @@ public:
         createNewPaths();
         duplicateMap();
     }
-    void draw(int pixels){
-        set_3f_color(RED);
-        // Print corridor colors
+    
+    void drawMap(int pixelSize){
         for(int i = 0; i < rows; i++){
             for(int j = 0; j < columns; j++){
                 if(this->array[i][j] == PATH){
-                    draw_square(j*pixels, i*pixels, pixels);
+                    setColorPixel("WHITE");
+                    drawSquarePixel(j*pixelSize, i*pixelSize, pixelSize);
+                }
+                if(this->array[i][j] == WALL){
+                    setColorPixel("BLUE");
+                    drawSquarePixel(j*pixelSize, i*pixelSize, pixelSize);
+                }
+                if(this->array[i][j] == CENTERWALL){
+                    setColorPixel("BLACK");
+                    drawSquarePixel(j*pixelSize, i*pixelSize, pixelSize);
                 }
             }
         }
     }
+    void drawFood(int pixelSize){
+        float foodSize = pixelSize/4;//pixels foodSize
+        for(int i = 0; i < rows; i++){
+            for(int j = 0; j < columns; j++){
+                if(this->array[i][j] == PATH){
+                // calculate cell  position
+                float cell_origin_j = j * pixelSize;
+                printf("CELL ORIGIN J : %f\n",cell_origin_j);
+                
+                float cell_origin_i = i * pixelSize;
+                printf("CELL ORIGIN I: %f\n",cell_origin_i);
+                // calculate cell center
+                float center_d = pixelSize / 2;
+                float food_d = foodSize/2;
+                // Calculate food cosition
+                float food_j = cell_origin_j + center_d - food_d;
+                float food_i = cell_origin_i + center_d - food_d;
+                foodList.push_back(Food(food_j, food_i, foodSize));
+                }
+            }
+        }
+        list<Food>::iterator food;
+        for (food = foodList.begin(); food != foodList.end(); ++food){
+            setColorPixel("RED");
+            drawCirclePixel(food->j, food->i, foodSize);
+        }
+}
 
     void printTable(){
         for(int i = 0; i< rows; i++){
@@ -58,6 +96,7 @@ public:
             printf("\n");
         }
     }
+
     void generateMapDFS(Position startPosition){
         stack<Position> stack;
         stack.push(startPosition);
@@ -122,19 +161,21 @@ public:
     Position generateBaseMap(){
         int beginColum = columns-1;
         int beginRows = rows/2;
-        for(int i = beginRows-3; i<= beginRows+3; i++){
-            for (int j = beginColum ; j >= beginColum-4; j--){
-                if(i== beginRows-3 || i==beginRows+3){
+        int rowWidthCenterWall = 4;
+        int rowLongCenterWall = 2;
+        for(int i = beginRows-rowLongCenterWall; i<= beginRows+rowLongCenterWall; i++){
+            for (int j = beginColum ; j >= beginColum-rowWidthCenterWall; j--){
+                if(i== beginRows-rowLongCenterWall || i==beginRows+rowLongCenterWall){
                 array[i][j] = CENTERWALL;
                 }else{
                   array[i][j] = PATH;  
                 }
             }
-            array[i][beginColum-4] = CENTERWALL;
+            array[i][beginColum-rowWidthCenterWall] = CENTERWALL;
         }
-        array[beginRows-3][beginColum] = PATH;
+        array[beginRows-rowLongCenterWall][beginColum] = PATH;
 
-        return Position(beginColum,beginRows-4);
+        return Position(beginColum,beginRows-(rowLongCenterWall+1));
     }
     void duplicateMap(){
         columns = columns*2;

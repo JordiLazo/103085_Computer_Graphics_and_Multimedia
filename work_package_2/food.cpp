@@ -1,16 +1,8 @@
-#include<GL/glut.h>
-#include<iostream>
-#include<vector>
 #include"food.h"
-#include"draw.h"
 
-Food::Food(float j, float i, float pixels){
+Food::Food(float j, float i, float pixelSize){
     this->j = j;
     this->i = i;
-    this->pixels = pixels;
+    this->pixelSize = pixelSize;
 
 };
-void Food::draw(){
-    set_3f_color(GREEN);
-    draw_squaref(j, i, pixels);
-}

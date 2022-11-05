@@ -81,12 +81,12 @@ void Map::print_map() {
 }
 
 void Map::draw(int sq_size) {
-    set_3f_color(COOL_BLUE);
+    setColorPixel(COOL_BLUE);
     // Print corridor colors
     for(int i = 0; i < n_rows; i++){
         for(int j = 0; j < n_cols; j++){
             if(this->mesh[i][j] == CELL_VISITED || this->mesh[i][j] == BASE_CELL){
-                draw_square(j*sq_size, i*sq_size, sq_size);
+                drawSquarePixel(j*sq_size, i*sq_size, sq_size);
             }
         }
   	}

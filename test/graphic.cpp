@@ -18,7 +18,7 @@ void draw_rectangle(int x, int y, int width, int height){
     glEnd();
 }
 
-void draw_square(int x, int y, int size){
+void drawSquarePixel(int x, int y, int size){
     draw_rectangle(x, y, size, size);
 }
 
