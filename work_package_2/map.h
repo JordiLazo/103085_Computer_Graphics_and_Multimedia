@@ -28,16 +28,19 @@ public:
 //-----FUNCTIONS-----//
     Map();
     Map(int columnsMap, int rowsMap);
-    void generateMap(int columnsMap, int rowsMap);
+//-------PLAYER MAP-------//
+    Position startPosition();
+//-------DRAW MAP-------//
     void drawMap(int pixelSize);
     void drawFood(int pixelSize);
-    bool validateCell(Position position, bool ignoreCellVisited);
     void printMap();
+//-------GENERATE MAP-------//
+    void generateMap(int columnsMap, int rowsMap);
+    bool validateCell(Position position, bool ignoreCellVisited);
     void generateMapDFS(Position startPosition);
     void duplicateMap();
     void createNewPaths();
     int countPossiblePaths(vector<Position> vector);
-    Position startPosition();
     vector<Position> neighborsToJump (Position currentPosition);
     Position middlePosition(Position sourcePosition, Position destinationPosition);
     Position generateBaseMap();

@@ -1,7 +1,5 @@
 #include"map.h"
 
-
-
 //-------MAP CONSTRUCTOR-------//
 Map::Map(int columnsMap, int rowsMap) {
     generateMap(columns,rows);
@@ -9,33 +7,10 @@ Map::Map(int columnsMap, int rowsMap) {
 //-------MAP EMPTY CONSTRUCTOR-------//
 Map::Map(){};
 
-//-------GENERATE MAP-------//
-void Map::generateMap(int columnsMap, int rowsMap){
-    this-> columns = columnsMap;
-    this-> rows = rowsMap;
-    array = new int*[rows];
-    for(int i = 0; i<rowsMap;i++){
-        array[i] = new int[columnsMap];
-    }
-    srand(clock());
-    Position start = generateBaseMap();
-    generateMapDFS(start);
-    createNewPaths();
-    duplicateMap();
-}
-//-------MAP FUNCTIONS-------//
+//-------DRAW FUNCTIONS-------//
 Position Map::startPosition(){
-    int x = -1;
-    int y = -1;
-    while (true) {
-        x = rand() % rows;
-        y = rand() % columns;
-        if (this->array[x][y] == PATH){
-            return Position(x, y);
-        }
-    }
+    return Position(10,10);
 }
-//-------MAP FUNCTIONS-------//
 void Map::drawMap(int pixelSize){
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < columns; j++){
@@ -63,9 +38,7 @@ void Map::drawFood(int pixelSize){
             if(this->array[i][j] == PATH){
             // calculate position of food inside the pixel
             float foodPositionJ = (j * pixelSize) + centerPixelSize - foodSizeCenter;
-            printf("CELL J : %f\n",foodPositionJ);
             float foodPositionI = (i * pixelSize) + centerPixelSize - foodSizeCenter;
-            printf("CELL I: %f\n",foodPositionI);
             foodList.push_back(Food(foodPositionJ, foodPositionI, foodSize));
             }
         }
@@ -85,7 +58,20 @@ void Map::printMap(){
         printf("\n");
     }
 }
-
+//-------GENERATE MAP-------//
+void Map::generateMap(int columnsMap, int rowsMap){
+    this-> columns = columnsMap;
+    this-> rows = rowsMap;
+    array = new int*[rows];
+    for(int i = 0; i<rowsMap;i++){
+        array[i] = new int[columnsMap];
+    }
+    srand(clock());
+    Position start = generateBaseMap();
+    generateMapDFS(start);
+    createNewPaths();
+    duplicateMap();
+}
 void Map::generateMapDFS(Position startPosition){
     stack<Position> stack;
     stack.push(startPosition);
