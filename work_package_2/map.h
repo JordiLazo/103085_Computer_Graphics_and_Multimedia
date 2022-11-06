@@ -29,7 +29,7 @@ public:
     Map();
     Map(int columnsMap, int rowsMap);
 //-------PLAYER MAP-------//
-    Position startPosition();
+
 //-------DRAW MAP-------//
     void drawMap(int pixelSize);
     void drawFood(int pixelSize);

@@ -9,7 +9,7 @@
 
 //-----OPEN GL-----//
 void display();
-void special_input(int key, int x, int y);
+void keyboard(int key, int x, int y);
 void idle();
 
 //-----WINDOW SIZE-----//
@@ -23,6 +23,7 @@ void idle();
 int pixelSize; //pixels size of each position of the map
 Map map;
 Player player;
+long last_t = 0;
 
 int main(int argc, char *argv[]) {
     map.generateMap(COLUMNS,ROWS);
@@ -36,11 +37,11 @@ int main(int argc, char *argv[]) {
     printf("Pixels size:%d\n",pixelSize);
     Position init = player.startPosition(map);
     player.createPlayer(pixelSize, pixelSize-15, init);
-    printf("Px:%d\n",map.startPosition().x);
-    printf("Py:%d\n",map.startPosition().y);
     glutInitWindowSize(WIDTH, HEIGHT);
     glutCreateWindow("Pacman Work Package 2");
     glutDisplayFunc(display);
+    glutSpecialFunc(keyboard);
+    glutIdleFunc(idle);
     glMatrixMode(GL_PROJECTION);
     gluOrtho2D(0,WIDTH-1,HEIGHT-1,0);
     glutMainLoop();
@@ -54,4 +55,17 @@ void display(){
     map.drawFood(pixelSize);
     player.drawPlayer(pixelSize);
     glutSwapBuffers();
+}
+
+void keyboard(int key, int x, int y){
+    player.handleKeyboard(key);
+    glutPostRedisplay();
+}
+
+void idle(){
+    long t;
+    t = glutGet(GLUT_ELAPSED_TIME);
+    player.integrate(t-last_t);
+    last_t = t;
+    glutPostRedisplay();
 }

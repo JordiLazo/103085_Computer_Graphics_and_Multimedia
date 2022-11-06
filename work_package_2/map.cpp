@@ -8,9 +8,6 @@ Map::Map(int columnsMap, int rowsMap) {
 Map::Map(){};
 
 //-------DRAW FUNCTIONS-------//
-Position Map::startPosition(){
-    return Position(10,10);
-}
 void Map::drawMap(int pixelSize){
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < columns; j++){
