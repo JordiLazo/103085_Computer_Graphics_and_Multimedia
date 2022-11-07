@@ -7,20 +7,13 @@
 //-----------------------------------MAP SIZE-----------------------------------//
 #define COLUMNS 20
 #define ROWS 20
-
+//-----------------------------------WINDOW SIZE-----------------------------------//
+#define WIDTH 1400
+#define HEIGHT 700
 //-----------------------------------OPEN GL-----------------------------------//
 void display();
 void keyboard(int key, int x, int y);
 void idle();
-
-//-----------------------------------WINDOW SIZE-----------------------------------//
-#define WIDTH 1400
-#define HEIGHT 700
-
-//-----------------------------------GLOBAL FUNCTIONS-----------------------------------//
-void foodCollision();
-bool checkFoodCollision(Position obj1, Position obj2);
-
 //-----------------------------------GLOBAL VARIBALES-----------------------------------//
 int pixelSize; //pixels size of each position of the map
 Map map;
@@ -30,13 +23,13 @@ long lastTime = 0;
 //-----------------------------------MAIN-----------------------------------//
 int main(int argc, char *argv[]) {
 //-----------------------------------SET UP-----------------------------------//
-    map.generateMap(COLUMNS,ROWS);
-    map.printMap();
     pixelSize = min(WIDTH/COLUMNS, HEIGHT/ROWS);
+    map.insertMap(COLUMNS,ROWS);
+    food.insertFood(pixelSize,map);
+    map.printMap();
     printf("Pixels size:%d\n",pixelSize);
     Position init = player.startPosition(map);
     player.createPlayer(pixelSize, pixelSize-15, init);
-    food.insertFood(pixelSize,map);
 //-----------------------------------OPEN GL-----------------------------------//
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);

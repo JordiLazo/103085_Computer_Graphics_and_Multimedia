@@ -2,7 +2,7 @@
 
 //-------MAP CONSTRUCTOR-------//
 Map::Map(int columnsMap, int rowsMap) {
-    generateMap(columnsMap,rowsMap);
+    insertMap(columnsMap,rowsMap);
 }
 //-------MAP EMPTY CONSTRUCTOR-------//
 Map::Map(){};
@@ -59,7 +59,7 @@ void Map::printMap(){
     }
 }
 //-------GENERATE MAP-------//
-void Map::generateMap(int columnsMap, int rowsMap){
+void Map::insertMap(int columnsMap, int rowsMap){
     this-> columns = columnsMap;
     this-> rows = rowsMap;
     array = new int*[rows];

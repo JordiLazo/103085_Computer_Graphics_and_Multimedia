@@ -29,7 +29,7 @@ public:
     void drawMap(int pixelSize);
     void printMap();
 //-------GENERATE MAP-------//
-    void generateMap(int columnsMap, int rowsMap);
+    void insertMap(int columnsMap, int rowsMap);
     bool validateCell(Position position, bool ignoreCellVisited);
     void generateMapDFS(Position startPosition);
     void duplicateMap();

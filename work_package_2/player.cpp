@@ -122,7 +122,7 @@ bool Player::checkDownMove(int key){
         return false;
     }
 }
-bool Player::checkLeftMove( int key){
+bool Player::checkLeftMove(int key){
     if (map.array[this->currentPositionY][this->currentPositionX-1] == PATH && !(map.array[this->currentPositionY][this->currentPositionX-1] == CENTERWALL)){
         this->validMove= true;
         return true;
@@ -130,7 +130,7 @@ bool Player::checkLeftMove( int key){
         return false;
     }
 }
-bool Player::checkRightMove( int key){
+bool Player::checkRightMove(int key){
     if (map.array[this->currentPositionY][this->currentPositionX+1] == PATH && !(map.array[this->currentPositionY][this->currentPositionX+1] == CENTERWALL)){
         this->validMove= true;
         return true;
@@ -139,20 +139,22 @@ bool Player::checkRightMove( int key){
     }
 }
 void Player::foodCollision(list<Food> *foodList){
-    std::list<Food>::iterator foodIterator;
-    for (foodIterator = foodList->begin(); foodIterator != foodList->end(); ++foodIterator){
-        Position obj1 = Position(this->x, this->y);
-        Position obj2 = Position(foodIterator->x, foodIterator->y);
-        if(checkFoodCollision(obj1, obj2)) {
-            printf("START%ld\n",foodList->size());
-            foodIterator = foodList->erase(foodIterator);
-            printf("END%ld\n",foodList->size());
+    std::list<Food>::iterator foodItem;
+    for (foodItem = foodList->begin(); foodItem != foodList->end(); ++foodItem){
+        Position playerPosition = Position(this->x, this->y);
+        Position foodPosition = Position(foodItem->x, foodItem->y);
+        if(checkFoodCollision(playerPosition, foodPosition)) {
+            foodItem = foodList->erase(foodItem);
         }
     }
 }
-bool Player::checkFoodCollision(Position object1, Position object2){
-    float dist = pixelSize/1.5;
-    float dx = abs(object1.x - object2.x);
-    float dy = abs(object1.y - object2.y);
-    return dx  +  dy <= dist;
+bool Player::checkFoodCollision(Position playerPosition, Position foodPosition){
+    float distancePixels = pixelSize/1.5;
+    float distanceX = abs(playerPosition.x - foodPosition.x);
+    float distanceY = abs(playerPosition.y - foodPosition.y);
+    if(distanceX + distanceY <= distancePixels){
+        return true;
+    }else{
+        return false;
+    }
 }
