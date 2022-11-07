@@ -5,14 +5,13 @@
 #include<vector>
 #include<list>
 #include"draw.h"
-#include"food.h"
 #include"position.h"
+//#include"food.h"
 
 using namespace std;
 #define WALL 0
 #define PATH 1
 #define CENTERWALL 2
-
 
 #ifndef MAP
 #define MAP
@@ -24,7 +23,7 @@ public:
     int rows;
     int **array;
     int pixelSize;
-    list<Food> foodList;
+    //list<Food> foodList;
 //-----FUNCTIONS-----//
     Map();
     Map(int columnsMap, int rowsMap);
@@ -32,8 +31,8 @@ public:
 
 //-------DRAW MAP-------//
     void drawMap(int pixelSize);
-    void drawFood(int pixelSize);
-    void insertFood(int pixelSize);
+    //void drawFood(int pixelSize);
+    //void insertFood(int pixelSize);
     void printMap();
 //-------GENERATE MAP-------//
     void generateMap(int columnsMap, int rowsMap);

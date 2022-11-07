@@ -2,6 +2,7 @@
 #include<iostream>
 #include"map.h"
 #include"player.h"
+#include"food.h"
 
 //-----------------------------------MAP SIZE-----------------------------------//
 #define COLUMNS 20
@@ -24,6 +25,7 @@ bool checkFoodCollision(Position obj1, Position obj2);
 int pixelSize; //pixels size of each position of the map
 Map map;
 Player player;
+Food food;
 long lastTime = 0;
 //-----------------------------------MAIN-----------------------------------//
 int main(int argc, char *argv[]) {
@@ -34,7 +36,8 @@ int main(int argc, char *argv[]) {
     printf("Pixels size:%d\n",pixelSize);
     Position init = player.startPosition(map);
     player.createPlayer(pixelSize, pixelSize-15, init);
-    map.insertFood(pixelSize);
+    //map.insertFood(pixelSize);
+    food.insertFood(pixelSize,map);
 //-----------------------------------OPEN GL-----------------------------------//
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
@@ -54,7 +57,8 @@ void display(){
     glClearColor(0.2,0.2,0.2,0.0);
     glClear(GL_COLOR_BUFFER_BIT);
     map.drawMap(pixelSize);
-    map.drawFood(pixelSize);
+    //map.drawFood(pixelSize);
+    food.drawFood(pixelSize);
     player.drawPlayer();
     glutSwapBuffers();
 }
@@ -68,10 +72,12 @@ void idle(){
     long currentTime;
     currentTime = glutGet(GLUT_ELAPSED_TIME);
     player.createMove(currentTime-lastTime);
-    foodCollision();
+    //foodCollision();
+    food.foodCollision(player);
     lastTime = currentTime;
     glutPostRedisplay();
 }
+/*
 void foodCollision() {
     std::list<Food>::iterator food;
     for (food = map.foodList.begin(); food != map.foodList.end(); ++food){
@@ -88,3 +94,4 @@ bool checkFoodCollision(Position obj1, Position obj2) {
     float dy = abs(obj1.y - obj2.y);
     return dx  +  dy <= dist;
 }
+*/

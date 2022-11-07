@@ -26,6 +26,7 @@ void Map::drawMap(int pixelSize){
         }
     }
 }
+/*
 void Map::drawFood(int pixelSize){
     float foodSize = pixelSize/4;
     list<Food>::iterator itemFood;
@@ -49,7 +50,7 @@ void Map::insertFood(int pixelSize){
         }
     }
 }
-
+*/
 void Map::printMap(){
     for(int i = 0; i< rows; i++){
         for (int j = 0; j < columns; j++){
