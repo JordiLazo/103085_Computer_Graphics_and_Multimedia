@@ -27,6 +27,14 @@ void Map::drawMap(int pixelSize){
     }
 }
 void Map::drawFood(int pixelSize){
+    float foodSize = pixelSize/4;
+    list<Food>::iterator itemFood;
+    for (itemFood = foodList.begin(); itemFood != foodList.end(); ++itemFood){
+        setColorPixel("RED");
+        drawCirclePixel(itemFood->x, itemFood->y, foodSize);
+    }
+}
+void Map::insertFood(int pixelSize){
     float foodSize = pixelSize/4;//pixel foodSize
     float foodSizeCenter = foodSize/2;//center of the pixel foodSize
     float centerPixelSize = pixelSize/2;
@@ -39,11 +47,6 @@ void Map::drawFood(int pixelSize){
             foodList.push_back(Food(foodPositionJ, foodPositionI, foodSize));
             }
         }
-    }
-    list<Food>::iterator itemFood;
-    for (itemFood = foodList.begin(); itemFood != foodList.end(); ++itemFood){
-        setColorPixel("RED");
-        drawCirclePixel(itemFood->j, itemFood->i, foodSize);
     }
 }
 

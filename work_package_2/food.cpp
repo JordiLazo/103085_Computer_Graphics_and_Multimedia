@@ -1,7 +1,7 @@
 #include"food.h"
 
-Food::Food(float j, float i, float pixelSize){
-    this->j = j;
-    this->i = i;
+Food::Food(float x, float y, float pixelSize){
+    this->x = x;
+    this->y = y;
     this->pixelSize = pixelSize;
 };

@@ -3,9 +3,13 @@
 
 class Food{
     public:
-        Food(float j, float i, float pixelSize);
-        float j;
-        float i;
+        Food(float x, float y, float pixelSize);
+        float x;
+        float y;
         float pixelSize;
+        bool operator == (const Food& food) const { 
+            return x == food.x && y == food.y && pixelSize==food.pixelSize;
+        }
+        bool operator != (const Food& food) const { return !operator==(food); }
 };
 #endif

@@ -33,6 +33,7 @@ public:
 //-------DRAW MAP-------//
     void drawMap(int pixelSize);
     void drawFood(int pixelSize);
+    void insertFood(int pixelSize);
     void printMap();
 //-------GENERATE MAP-------//
     void generateMap(int columnsMap, int rowsMap);

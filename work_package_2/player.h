@@ -1,14 +1,9 @@
 #include <GL/glut.h>
-#include "map.h"
-#include "position.h"
+#include"position.h"
+#include"map.h"
 
 #define STILL 0
 #define MOVE 1
-#define REACHED 2
-
-#define HOUSE 0
-#define SCATTER 1
-#define CHASE 2
 
 using namespace std;
 
@@ -31,16 +26,21 @@ class Player {
     float centerPixel;
     int key;
     int direction;
-    bool isOut;
+    bool validMove;
     float vx,vy; //-- Velocity vector
-    long time_remaining;
+    long timeRemaining;
+//-----------------------------------FUNCTIONS-----------------------------------//
     Player();
     void createPlayer(int pixelSize, float pixelSizePlayer,Position position);
-    void drawPlayer(int pixelSize);
+    void drawPlayer();
     Position startPosition(Map map);
     void handleKeyboard(int key);
     void move(int key);
-    bool validMove(int key);
-    void integrate(long t);
+    bool checkValidMove(int key);
+    bool checkUpMove(int key);
+    bool checkDownMove(int key);
+    bool checkLeftMove(int key);
+    bool checkRightMove(int key);
+    void createMove(long t);
 };
 #endif
