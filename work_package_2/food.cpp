@@ -4,7 +4,10 @@ Food::Food(float x, float y, float pixelSize){
     this->x = x;
     this->y = y;
     this->pixelSize = pixelSize;
+    //this->map = map;
+    //this->foodList = foodList;
 };
+/*
 Food::Food(){};
 void Food::insertFood(int pixelSize, Map map){
     float foodSize = pixelSize/4;//pixel foodSize
@@ -48,3 +51,4 @@ bool Food::checkFoodCollision(Position object1, Position object2){
     float dy = abs(object1.y - object2.y);
     return dx + dy <= dist;
 }
+*/
