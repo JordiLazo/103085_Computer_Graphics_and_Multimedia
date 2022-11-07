@@ -4,8 +4,8 @@
 #include"player.h"
 
 //-----------------------------------MAP SIZE-----------------------------------//
-#define COLUMNS 15
-#define ROWS 15
+#define COLUMNS 20
+#define ROWS 20
 
 //-----------------------------------OPEN GL-----------------------------------//
 void display();
@@ -17,8 +17,8 @@ void idle();
 #define HEIGHT 700
 
 //-----------------------------------GLOBAL FUNCTIONS-----------------------------------//
-void food_collision();
-bool have_collision(Position obj1, Position obj2);
+void foodCollision();
+bool checkFoodCollision(Position obj1, Position obj2);
 
 //-----------------------------------GLOBAL VARIBALES-----------------------------------//
 int pixelSize; //pixels size of each position of the map
@@ -68,27 +68,22 @@ void idle(){
     long currentTime;
     currentTime = glutGet(GLUT_ELAPSED_TIME);
     player.createMove(currentTime-lastTime);
-    food_collision();
+    foodCollision();
     lastTime = currentTime;
     glutPostRedisplay();
 }
-void food_collision() {
-    Food *food_to_remove = 0;
-    float dist = pixelSize / 2;
+void foodCollision() {
     std::list<Food>::iterator food;
     for (food = map.foodList.begin(); food != map.foodList.end(); ++food){
         Position obj1 = Position(player.x, player.y);
         Position obj2 = Position(food->x, food->y);
-        if(have_collision(obj1, obj2)) {
-            food_to_remove = &(*food);
+        if(checkFoodCollision(obj1, obj2)) {
+            food = map.foodList.erase(food);
         }
     }
-    if (food_to_remove != 0){
-        map.foodList.remove(*food_to_remove);
-    }
 }
-bool have_collision(Position obj1, Position obj2) {
-    int dist = pixelSize/2;
+bool checkFoodCollision(Position obj1, Position obj2) {
+    float dist = pixelSize/1.5;
     float dx = abs(obj1.x - obj2.x);
     float dy = abs(obj1.y - obj2.y);
     return dx  +  dy <= dist;

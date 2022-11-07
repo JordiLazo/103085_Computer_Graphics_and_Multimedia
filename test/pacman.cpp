@@ -55,7 +55,7 @@ Map map;
 void put_food();
 void draw_food();
 void check_collisions();
-void food_collision();
+void foodCollision();
 bool have_collision(pair<float, float> obj1, pair<float, float> obj2);
 void move_ghosts_to_base();
 
@@ -194,7 +194,7 @@ void move_ghosts_to_base() {
     }
 }
 
-void food_collision() {
+void foodCollision() {
     Food *food_to_remove = 0;
     float dist = sq_size / 2;
     std::list<Food>::iterator food;
@@ -226,7 +226,7 @@ void ghost_collision() {
 
 
 void check_collisions() {
-    food_collision();
+    foodCollision();
     ghost_collision();
 }
 
