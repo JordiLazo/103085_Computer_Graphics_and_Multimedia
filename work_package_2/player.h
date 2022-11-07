@@ -1,6 +1,8 @@
 #include <GL/glut.h>
+#include<list>
 #include"position.h"
 #include"map.h"
+#include"food.h"
 
 #define STILL 0
 #define MOVE 1
@@ -42,5 +44,7 @@ class Player {
     bool checkLeftMove(int key);
     bool checkRightMove(int key);
     void createMove(long t);
+    void foodCollision(list<Food> *foodList);
+    bool checkFoodCollision(Position object1, Position object2);
 };
 #endif

@@ -2,7 +2,7 @@
 #include<iostream>
 #include"map.h"
 #include"player.h"
-//#include"food.h"
+#include"food.h"
 
 //-----------------------------------MAP SIZE-----------------------------------//
 #define COLUMNS 20
@@ -25,7 +25,7 @@ bool checkFoodCollision(Position obj1, Position obj2);
 int pixelSize; //pixels size of each position of the map
 Map map;
 Player player;
-//Food food;
+Food food;
 long lastTime = 0;
 //-----------------------------------MAIN-----------------------------------//
 int main(int argc, char *argv[]) {
@@ -36,8 +36,7 @@ int main(int argc, char *argv[]) {
     printf("Pixels size:%d\n",pixelSize);
     Position init = player.startPosition(map);
     player.createPlayer(pixelSize, pixelSize-15, init);
-    map.insertFood(pixelSize);
-    //food.insertFood(pixelSize,map);
+    food.insertFood(pixelSize,map);
 //-----------------------------------OPEN GL-----------------------------------//
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
@@ -57,8 +56,8 @@ void display(){
     glClearColor(0.2,0.2,0.2,0.0);
     glClear(GL_COLOR_BUFFER_BIT);
     map.drawMap(pixelSize);
-    map.drawFood(pixelSize);
-    //food.drawFood(pixelSize);
+    //map.drawFood(pixelSize);
+    food.drawFood(pixelSize);
     player.drawPlayer();
     glutSwapBuffers();
 }
@@ -72,25 +71,7 @@ void idle(){
     long currentTime;
     currentTime = glutGet(GLUT_ELAPSED_TIME);
     player.createMove(currentTime-lastTime);
-    foodCollision();
-    //food.foodCollision(player);
+    player.foodCollision(&food.foodList);
     lastTime = currentTime;
     glutPostRedisplay();
-}
-
-void foodCollision() {
-    std::list<Food>::iterator food;
-    for (food = map.foodList.begin(); food != map.foodList.end(); ++food){
-        Position obj1 = Position(player.x, player.y);
-        Position obj2 = Position(food->x, food->y);
-        if(checkFoodCollision(obj1, obj2)) {
-            food = map.foodList.erase(food);
-        }
-    }
-}
-bool checkFoodCollision(Position obj1, Position obj2) {
-    float dist = pixelSize/1.5;
-    float dx = abs(obj1.x - obj2.x);
-    float dy = abs(obj1.y - obj2.y);
-    return dx  +  dy <= dist;
 }

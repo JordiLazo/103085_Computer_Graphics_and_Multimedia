@@ -138,3 +138,21 @@ bool Player::checkRightMove( int key){
         return false;
     }
 }
+void Player::foodCollision(list<Food> *foodList){
+    std::list<Food>::iterator foodIterator;
+    for (foodIterator = foodList->begin(); foodIterator != foodList->end(); ++foodIterator){
+        Position obj1 = Position(this->x, this->y);
+        Position obj2 = Position(foodIterator->x, foodIterator->y);
+        if(checkFoodCollision(obj1, obj2)) {
+            printf("START%ld\n",foodList->size());
+            foodIterator = foodList->erase(foodIterator);
+            printf("END%ld\n",foodList->size());
+        }
+    }
+}
+bool Player::checkFoodCollision(Position object1, Position object2){
+    float dist = pixelSize/1.5;
+    float dx = abs(object1.x - object2.x);
+    float dy = abs(object1.y - object2.y);
+    return dx  +  dy <= dist;
+}

@@ -7,7 +7,7 @@ Food::Food(float x, float y, float pixelSize){
     //this->map = map;
     //this->foodList = foodList;
 };
-/*
+
 Food::Food(){};
 void Food::insertFood(int pixelSize, Map map){
     float foodSize = pixelSize/4;//pixel foodSize
@@ -16,7 +16,6 @@ void Food::insertFood(int pixelSize, Map map){
     for(int i = 0; i < map.rows; i++){
         for(int j = 0; j < map.columns; j++){
             if(map.array[i][j] == PATH){
-            // calculate position of food inside the pixel
             float foodPositionJ = (j * pixelSize) + centerPixelSize - foodSizeCenter;
             float foodPositionI = (i * pixelSize) + centerPixelSize - foodSizeCenter;
             foodList.push_back(Food(foodPositionJ, foodPositionI, foodSize));
@@ -32,9 +31,8 @@ void Food::drawFood(int pixelSize){
         setColorPixel("RED");
         drawCirclePixel(itemFood->x, itemFood->y, foodSize);
     }
-    //printf("My size:%d\n", foodList.size());
 }
-
+/*
 void Food::foodCollision(Player player) {
     std::list<Food>::iterator itemFood;
     for (itemFood = foodList.begin(); itemFood != foodList.end(); ++itemFood){
