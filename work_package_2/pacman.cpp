@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
     map.insertMap(COLUMNS,ROWS);
     food.insertFood(pixelSize,map);
     Position startEnemy = map.randomBasePosition();
-    enemy.insertEnemies(pixelSize,pixelSize-14,startEnemy);
+    enemy.createEnemy(pixelSize,pixelSize-14,startEnemy);
     map.printMap();
     printf("Pixels size:%d\n",pixelSize);
     Position init = player.startPosition(map);
@@ -52,9 +52,9 @@ int main(int argc, char *argv[]) {
 void display(){
     glClearColor(0.2,0.2,0.2,0.0);
     glClear(GL_COLOR_BUFFER_BIT);
-    enemy.drawEnemies();
     map.drawMap(pixelSize);
     food.drawFood(pixelSize);
+    enemy.drawEnemies();
     player.drawPlayer();
     glutSwapBuffers();
 }

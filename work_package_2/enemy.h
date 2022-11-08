@@ -24,7 +24,7 @@ class Enemy {
         list<Enemy> listOfEnemies;
         int state;
         Enemy();
-        Enemy(float x, float y, float pixelSize);
+        void createEnemy(int pixelSize, float pixelSizePlayer,Position position);
         void insertEnemies(int pixelSize, float pixelSizePlayer,Position position);
         void drawEnemies();
         void generate_new_movement(long t);

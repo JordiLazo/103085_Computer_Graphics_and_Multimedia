@@ -8,7 +8,7 @@ Food::Food(float x, float y, float pixelSize){
 }
 
 void Food::insertFood(int pixelSize, Map map){
-    float foodSize = pixelSize/4;//pixel foodSize
+    float foodSize = pixelSize/2;//pixel foodSize
     float foodSizeCenter = foodSize/4;//center of the pixel foodSize
     float centerPixelSize = pixelSize/2;
     for(int i = 0; i < map.rows; i++){
