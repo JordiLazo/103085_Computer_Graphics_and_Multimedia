@@ -52,6 +52,9 @@ Position Map::randomBasePosition(){
     }
     return Position(10,10);
 }
+Position Map::exitBasePostion(){
+    return this->positionExitBasePostion;
+}
 //-----------------------------------GENERATE MAP-----------------------------------//
 void Map::insertMap(int columnsMap, int rowsMap){
     this-> columns = columnsMap;
@@ -143,8 +146,11 @@ Position Map::generateBaseMap(){
         array[i][beginColum-rowWidthCenterWall] = CENTERWALL;
     }
     array[beginRows-rowLongCenterWall][beginColum] = BASEPATH;
-
+    printf("POS X:%d\n",beginColum);
+    printf("POS Y:%d\n",beginRows-(rowLongCenterWall+1));
+    this->positionExitBasePostion= Position(beginColum,beginRows-(rowLongCenterWall+1));
     return Position(beginColum,beginRows-(rowLongCenterWall+1));
+
 }
 void Map::duplicateMap(){
     columns = columns*2;

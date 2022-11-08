@@ -204,6 +204,8 @@ void Map::dfs_generator(int x_start, int y_start) {
     }
     mesh[start_position.second + 1][start_position.first] = BASE_CELL;
     this->base_exit = make_pair(start_position.first, start_position.second - 1);
+    printf("EXIT X:%d\n",start_position.first);
+    printf("EXIT Y:%d\n",start_position.second-1);
 }
 
 

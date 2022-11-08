@@ -11,6 +11,7 @@
 class Enemy {
     public:
         Position position;
+        Map map;
         int pixelSize;
         float pixelSizeEnemy;
         float speed;
@@ -25,12 +26,13 @@ class Enemy {
         float vx,vy; //-- Velocity vector
         int key;
         Enemy();
-        void createEnemy(int pixelSize, float pixelSizePlayer,Position position);
+        void createEnemy(int pixelSize, float pixelSizePlayer,Map map);
         void insertEnemies(int pixelSize, float pixelSizePlayer,Position position);
         void drawEnemies(list<Enemy> listOfEnemies);
         void createEnemyMove(long t);
         void moveEnemy();
-        bool checkValidEnemyMove();
+        void checkValidEnemyMove(int key);
+        int randomDirection();
 
 };
 #endif

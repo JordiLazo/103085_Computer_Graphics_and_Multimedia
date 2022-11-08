@@ -23,10 +23,12 @@ public:
     int rows;
     int **array;
     int pixelSize;
+    Position positionExitBasePostion;
 //-----FUNCTIONS-----//
     Map();
     Map(int columnsMap, int rowsMap);
     Position randomBasePosition();
+    Position exitBasePostion();
 //-------DRAW MAP-------//
     void drawMap(int pixelSize);
     void printMap();

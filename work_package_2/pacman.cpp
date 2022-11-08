@@ -82,7 +82,7 @@ void idle(){
 
 void insertEnemies(){
     for(int i = 0;i<numberOfEnemies;i++){
-        enemy.createEnemy(pixelSize,pixelSize-14,map.randomBasePosition());
+        enemy.createEnemy(pixelSize,pixelSize-14,map);
         listOfEnemies.push_back(enemy);
     }
 }
