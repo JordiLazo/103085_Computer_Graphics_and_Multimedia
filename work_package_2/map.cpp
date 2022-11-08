@@ -47,8 +47,6 @@ Position Map::randomBasePosition(){
         int y = rand() % this->columns;
         if (this->array[x][y] == BASEPATH){
             validPosition = true;
-            printf("ENTRE X: %d\n",x);
-            printf("ENTRE X: %d\n",y);
             return Position(y, x);
         }
     }

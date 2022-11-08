@@ -26,8 +26,6 @@ Position Player::startPosition(Map map){
         int y = rand() % this->map.columns;
         if (this->map.array[x][y] == PATH){
             validPosition = true;
-            printf("X:%d\n",x);
-            printf("Y:%d\n",y);
             return Position(y, x);
         }
     }

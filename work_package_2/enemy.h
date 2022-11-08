@@ -5,7 +5,6 @@
 
 #define STILL 0
 #define MOVE 1
-#define ENEMIES 10
 
 #ifndef ENEMY
 #define ENEMY
@@ -21,15 +20,17 @@ class Enemy {
         float centerPixel;
         float x;
         float y;
-        list<Enemy> listOfEnemies;
         int state;
+        long timeRemaining;
+        float vx,vy; //-- Velocity vector
+        int key;
         Enemy();
         void createEnemy(int pixelSize, float pixelSizePlayer,Position position);
         void insertEnemies(int pixelSize, float pixelSizePlayer,Position position);
-        void drawEnemies();
-        void generate_new_movement(long t);
-        int get_random_direction();
-        bool is_not_turn(int direction);
-        void integrate_timer(long t);
+        void drawEnemies(list<Enemy> listOfEnemies);
+        void createEnemyMove(long t);
+        void moveEnemy();
+        bool checkValidEnemyMove();
+
 };
 #endif

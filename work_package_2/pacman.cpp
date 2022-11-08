@@ -15,21 +15,28 @@
 void display();
 void keyboard(int key, int x, int y);
 void idle();
+//-----------------------------------GLOBAL FUNCTIONS-----------------------------------//
+void insertEnemies();
+void createMoveEnemies();
 //-----------------------------------GLOBAL VARIBALES-----------------------------------//
 Map map;
 Player player;
 Food food;
 Enemy enemy;
+list<Enemy> listOfEnemies;
 int pixelSize; //pixels size of each position of the map
+int numberOfEnemies;
 long lastTime = 0;
+long currentTime;
 //-----------------------------------MAIN-----------------------------------//
 int main(int argc, char *argv[]) {
 //-----------------------------------SET UP GAME-----------------------------------//
     pixelSize = min(WIDTH/COLUMNS, HEIGHT/ROWS);
+    numberOfEnemies = max(COLUMNS,ROWS)/5;
+    printf("ENEMIES:%d\n", numberOfEnemies);
     map.insertMap(COLUMNS,ROWS);
     food.insertFood(pixelSize,map);
-    Position startEnemy = map.randomBasePosition();
-    enemy.createEnemy(pixelSize,pixelSize-14,startEnemy);
+    insertEnemies();
     map.printMap();
     printf("Pixels size:%d\n",pixelSize);
     Position init = player.startPosition(map);
@@ -54,7 +61,7 @@ void display(){
     glClear(GL_COLOR_BUFFER_BIT);
     map.drawMap(pixelSize);
     food.drawFood(pixelSize);
-    enemy.drawEnemies();
+    enemy.drawEnemies(listOfEnemies);
     player.drawPlayer();
     glutSwapBuffers();
 }
@@ -65,10 +72,23 @@ void keyboard(int key, int x, int y){
 }
 
 void idle(){
-    long currentTime;
     currentTime = glutGet(GLUT_ELAPSED_TIME);
     player.createMove(currentTime-lastTime);
     player.foodCollision(&food.foodList);
+    createMoveEnemies();
     lastTime = currentTime;
     glutPostRedisplay();
+}
+
+void insertEnemies(){
+    for(int i = 0;i<numberOfEnemies;i++){
+        enemy.createEnemy(pixelSize,pixelSize-14,map.randomBasePosition());
+        listOfEnemies.push_back(enemy);
+    }
+}
+void createMoveEnemies(){
+    std::list<Enemy>::iterator iteratorEnemy;
+    for(iteratorEnemy = listOfEnemies.begin(); iteratorEnemy != listOfEnemies.end(); ++iteratorEnemy){
+        iteratorEnemy->createEnemyMove(currentTime-lastTime);
+    }
 }
