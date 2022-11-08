@@ -1,14 +1,12 @@
 #include"food.h"
 
+Food::Food(){}
 Food::Food(float x, float y, float pixelSize){
     this->x = x;
     this->y = y;
     this->pixelSize = pixelSize;
-    //this->map = map;
-    //this->foodList = foodList;
-};
+}
 
-Food::Food(){};
 void Food::insertFood(int pixelSize, Map map){
     float foodSize = pixelSize/4;//pixel foodSize
     float foodSizeCenter = foodSize/4;//center of the pixel foodSize

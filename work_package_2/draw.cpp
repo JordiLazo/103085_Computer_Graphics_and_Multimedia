@@ -25,6 +25,9 @@ void setColorPixel(string color){
     if(color == "YELLOW"){
         glColor3f(255,255,0);
     }
+    if(color == "GREEN"){
+        glColor3f(0,255,0);
+    }
 }
 void drawCirclePixel(float x, float y, float radius){
 	int triangleAmount = 20; //# of triangles used to draw circle

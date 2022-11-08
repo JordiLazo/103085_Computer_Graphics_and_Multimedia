@@ -11,6 +11,7 @@ using namespace std;
 #define WALL 0
 #define PATH 1
 #define CENTERWALL 2
+#define BASEPATH 3
 
 #ifndef MAP
 #define MAP
@@ -25,6 +26,7 @@ public:
 //-----FUNCTIONS-----//
     Map();
     Map(int columnsMap, int rowsMap);
+    Position randomBasePosition();
 //-------DRAW MAP-------//
     void drawMap(int pixelSize);
     void printMap();

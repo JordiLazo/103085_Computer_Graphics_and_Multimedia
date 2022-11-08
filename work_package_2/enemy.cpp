@@ -1,8 +1,40 @@
 #include"enemy.h"
 
-void Enemy::generateEnemies(){
-    for(int i = 0; i <= ENEMIES; i++){
+Enemy::Enemy(){}
+Enemy::Enemy(float x, float y, float pixelSize){
+    this->x = x;
+    this->y = y;
+    this->pixelSize = pixelSize;
+    /*
+    this->state = STILL;
+    this->speed = 100.0;
+    this->pixelSize = pixelSize;
+    this->pixelSizePlayer = pixelSizePlayer;
+    this->currentPositionX = position.x;
+    this->currentPositionY = position.y;
+    this->position = position;
+    this->centerPixel = (pixelSize/2) - (pixelSizePlayer/2);
+    this->x = this->currentPositionX*pixelSize + this->centerPixel;
+    this->y = this->currentPositionY*pixelSize + this->centerPixel;
+    */
 
+}
+void Enemy::insertEnemies(int pixelSize, float pixelSizePlayer,Position position){
+
+    float foodSize = pixelSize/4;//pixel foodSize
+    float foodSizeCenter = foodSize/4;//center of the pixel foodSize
+    float centerPixelSize = pixelSize/2;
+    for(int i = 0; i < ENEMIES; i++){
+        float foodPositionJ = (position.x * pixelSize) + centerPixelSize - foodSizeCenter;
+        float foodPositionI = (position.y * pixelSize) + centerPixelSize - foodSizeCenter;
+        listOfEnemies.push_back(Enemy(foodPositionJ, foodPositionI, foodSize));
+        }
+    }
+void Enemy::drawEnemies(){
+    list<Enemy>::iterator enemy;
+    for (enemy = this->listOfEnemies.begin(); enemy != this->listOfEnemies.end(); ++enemy){
+        setColorPixel("BLACK");
+        drawSquarePixel(enemy->x, enemy->y, enemy->pixelSizePlayer);
     }
 }
 /*

@@ -3,6 +3,7 @@
 #include"map.h"
 #include"player.h"
 #include"food.h"
+#include"enemy.h"
 
 //-----------------------------------MAP SIZE-----------------------------------//
 #define COLUMNS 20
@@ -15,21 +16,24 @@ void display();
 void keyboard(int key, int x, int y);
 void idle();
 //-----------------------------------GLOBAL VARIBALES-----------------------------------//
-int pixelSize; //pixels size of each position of the map
 Map map;
 Player player;
 Food food;
+Enemy enemy;
+int pixelSize; //pixels size of each position of the map
 long lastTime = 0;
 //-----------------------------------MAIN-----------------------------------//
 int main(int argc, char *argv[]) {
-//-----------------------------------SET UP-----------------------------------//
+//-----------------------------------SET UP GAME-----------------------------------//
     pixelSize = min(WIDTH/COLUMNS, HEIGHT/ROWS);
     map.insertMap(COLUMNS,ROWS);
     food.insertFood(pixelSize,map);
+    Position startEnemy = map.randomBasePosition();
+    enemy.insertEnemies(pixelSize,pixelSize-14,startEnemy);
     map.printMap();
     printf("Pixels size:%d\n",pixelSize);
     Position init = player.startPosition(map);
-    player.createPlayer(pixelSize, pixelSize-15, init);
+    player.createPlayer(pixelSize, pixelSize-14, init);
 //-----------------------------------OPEN GL-----------------------------------//
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
@@ -48,8 +52,8 @@ int main(int argc, char *argv[]) {
 void display(){
     glClearColor(0.2,0.2,0.2,0.0);
     glClear(GL_COLOR_BUFFER_BIT);
+    enemy.drawEnemies();
     map.drawMap(pixelSize);
-    //map.drawFood(pixelSize);
     food.drawFood(pixelSize);
     player.drawPlayer();
     glutSwapBuffers();

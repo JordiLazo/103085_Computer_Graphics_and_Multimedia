@@ -22,34 +22,14 @@ void Map::drawMap(int pixelSize){
                 setColorPixel("BLACK");
                 drawSquarePixel(j*pixelSize, i*pixelSize, pixelSize);
             }
-        }
-    }
-}
-/*
-void Map::drawFood(int pixelSize){
-    float foodSize = pixelSize/4;
-    list<Food>::iterator itemFood;
-    for (itemFood = foodList.begin(); itemFood != foodList.end(); ++itemFood){
-        setColorPixel("RED");
-        drawCirclePixel(itemFood->x, itemFood->y, foodSize);
-    }
-}
-void Map::insertFood(int pixelSize){
-    float foodSize = pixelSize/4;//pixel foodSize
-    float foodSizeCenter = foodSize/2;//center of the pixel foodSize
-    float centerPixelSize = pixelSize/2;
-    for(int i = 0; i < rows; i++){
-        for(int j = 0; j < columns; j++){
-            if(this->array[i][j] == PATH){
-            // calculate position of food inside the pixel
-            float foodPositionJ = (j * pixelSize) + centerPixelSize - foodSizeCenter;
-            float foodPositionI = (i * pixelSize) + centerPixelSize - foodSizeCenter;
-            foodList.push_back(Food(foodPositionJ, foodPositionI, foodSize));
+            if(this->array[i][j] == BASEPATH){
+                setColorPixel("WHITE");
+                drawSquarePixel(j*pixelSize, i*pixelSize, pixelSize);
             }
         }
     }
 }
-*/
+
 void Map::printMap(){
     for(int i = 0; i< rows; i++){
         for (int j = 0; j < columns; j++){
@@ -58,7 +38,21 @@ void Map::printMap(){
         printf("\n");
     }
 }
-//-------GENERATE MAP-------//
+
+Position Map::randomBasePosition(){
+    srand(clock());
+    bool validPosition = false;
+    while (!validPosition) {
+        int x = rand() % this->rows;
+        int y = rand() % this->columns;
+        if (this->array[x][y] == BASEPATH){
+            validPosition = true;
+            return Position(y, x);
+        }
+    }
+    return Position(10,10);
+}
+//-----------------------------------GENERATE MAP-----------------------------------//
 void Map::insertMap(int columnsMap, int rowsMap){
     this-> columns = columnsMap;
     this-> rows = rowsMap;
@@ -120,9 +114,9 @@ bool Map::validateCell(Position position, bool ignoreCellVisited){
     if(position.x >= columns-1 || position.y >= rows-1){
         return false;
     }
-    if(!ignoreCellVisited && array[position.y][position.x] == PATH){
+    if(!ignoreCellVisited && array[position.y][position.x] == PATH ){
         return false;
-    }if(array[position.y][position.x] == CENTERWALL){
+    }if(array[position.y][position.x] == CENTERWALL || array[position.y][position.x] == BASEPATH){
         return false;
     }
     return true;
@@ -143,12 +137,12 @@ Position Map::generateBaseMap(){
             if(i== beginRows-rowLongCenterWall || i==beginRows+rowLongCenterWall){
             array[i][j] = CENTERWALL;
             }else{
-                array[i][j] = PATH;  
+                array[i][j] = BASEPATH;  
             }
         }
         array[i][beginColum-rowWidthCenterWall] = CENTERWALL;
     }
-    array[beginRows-rowLongCenterWall][beginColum] = PATH;
+    array[beginRows-rowLongCenterWall][beginColum] = BASEPATH;
 
     return Position(beginColum,beginRows-(rowLongCenterWall+1));
 }
