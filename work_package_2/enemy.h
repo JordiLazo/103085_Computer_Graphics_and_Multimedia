@@ -36,6 +36,9 @@ class Enemy {
         bool checkValidEnemyMove(int key);
         int randomDirection();
         void handleKeyboard(int key);
-
+        bool checkRightMove(int key);
+        bool checkLeftMove(int key);
+        bool checkUpMove(int key);
+        bool checkDownMove(int key);
 };
 #endif

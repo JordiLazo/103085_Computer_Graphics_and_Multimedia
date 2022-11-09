@@ -33,12 +33,10 @@ int main(int argc, char *argv[]) {
 //-----------------------------------SET UP GAME-----------------------------------//
     pixelSize = min(WIDTH/COLUMNS, HEIGHT/ROWS);
     numberOfEnemies = max(COLUMNS,ROWS)/5;
-    printf("ENEMIES:%d\n", numberOfEnemies);
     map.insertMap(COLUMNS,ROWS);
     food.insertFood(pixelSize,map);
     insertEnemies();
     map.printMap();
-    printf("Pixels size:%d\n",pixelSize);
     Position init = player.startPosition(map);
     player.createPlayer(pixelSize, pixelSize-14, init);
 //-----------------------------------OPEN GL-----------------------------------//

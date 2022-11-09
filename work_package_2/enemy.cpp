@@ -86,39 +86,60 @@ int Enemy::randomDirection(){
 }
 
 bool Enemy::checkValidEnemyMove(int key){
-    switch (key) {
-        case GLUT_KEY_UP:
-            if (map.array[this->currentPositionY-1][this->currentPositionX] == PATH){
-                this->validMove = true;
-                return true;
-            } else if (!this->validMove && map.array[this->currentPositionY-1][this->currentPositionX] == BASEPATH){
-                return true;
-            }
-            break;
-        case GLUT_KEY_DOWN:
-            if (map.array[this->currentPositionY+1][this->currentPositionX] == PATH){
-                this->validMove = true;
-                return true;
-            } else if (!this->validMove && map.array[this->currentPositionY+1][this->currentPositionX] == BASEPATH){
-                return true;
-            }
-            break;
-        case GLUT_KEY_LEFT:
-            if (map.array[this->currentPositionY][this->currentPositionX-1] == PATH){
-                this->validMove = true;
-                return true;
-            } else if (!this->validMove && map.array[this->currentPositionY][this->currentPositionX-1] == BASEPATH){
-                return true;
-            }
-            break;
-        case GLUT_KEY_RIGHT:
-            if (map.array[this->currentPositionY][this->currentPositionX+1] == PATH){
-                this->validMove = true;
-                return true;
-            } else if (!this->validMove && map.array[this->currentPositionY][this->currentPositionX+1] == BASEPATH){
-                return true;
-            }
-            break;
+    if(key == GLUT_KEY_UP){
+        return checkUpMove(key);
     }
-    return false;
+    if(key == GLUT_KEY_DOWN){
+        return checkDownMove(key);
+    }
+    if(key == GLUT_KEY_LEFT){
+        return checkLeftMove(key);
+    }
+    if(key == GLUT_KEY_RIGHT){
+        return checkRightMove(key);
+    }else{
+        return false;
+    }
+}
+
+bool Enemy::checkUpMove(int key){
+    if (map.array[this->currentPositionY-1][this->currentPositionX] == PATH){
+        this->validMove = true;
+        return true;
+    } else if (!this->validMove && map.array[this->currentPositionY-1][this->currentPositionX] == BASEPATH){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+bool Enemy::checkDownMove(int key){
+    if (map.array[this->currentPositionY+1][this->currentPositionX] == PATH){
+        this->validMove = true;
+        return true;
+    } else if (!this->validMove && map.array[this->currentPositionY+1][this->currentPositionX] == BASEPATH){
+        return true;
+    }else{
+        return false;
+    }
+}
+bool Enemy::checkLeftMove(int key){
+    if (map.array[this->currentPositionY][this->currentPositionX-1] == PATH){
+        this->validMove = true;
+        return true;
+    } else if (!this->validMove && map.array[this->currentPositionY][this->currentPositionX-1] == BASEPATH){
+        return true;
+    }else{
+        return false;
+    }
+}
+bool Enemy::checkRightMove(int key){
+    if (map.array[this->currentPositionY][this->currentPositionX+1] == PATH){
+        this->validMove = true;
+        return true;
+    } else if (!this->validMove && map.array[this->currentPositionY][this->currentPositionX+1] == BASEPATH){
+        return true;
+    }else{
+        return false;
+    }
 }

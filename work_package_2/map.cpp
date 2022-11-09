@@ -146,8 +146,6 @@ Position Map::generateBaseMap(){
         array[i][beginColum-rowWidthCenterWall] = CENTERWALL;
     }
     array[beginRows-rowLongCenterWall][beginColum] = BASEPATH;
-    printf("POS X:%d\n",beginColum);
-    printf("POS Y:%d\n",beginRows-(rowLongCenterWall+1));
     this->positionExitBasePostion= Position(beginColum,beginRows-(rowLongCenterWall+1));
     return Position(beginColum,beginRows-(rowLongCenterWall+1));
 
