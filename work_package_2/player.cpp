@@ -1,13 +1,14 @@
 #include "player.h"
 
 Player::Player(){}
-void Player::createPlayer(int pixelSize, float pixelSizePlayer, Position position){
+void Player::createPlayer(int pixelSize, float pixelSizePlayer, Map map){
     this->state = STILL;
     this->speed = 100.0;
     this->pixelSize = pixelSize;
+    this->map = map;
     this->pixelSizePlayer = pixelSizePlayer;
-    this->currentPositionX = position.x;
-    this->currentPositionY = position.y;
+    this->currentPositionX = this->startPosition(this->map).x;
+    this->currentPositionY = this->startPosition(this->map).y;
     this->centerPixel = (pixelSize/2) - (pixelSizePlayer/2);
     this->x = this->currentPositionX*pixelSize + this->centerPixel;
     this->y = this->currentPositionY*pixelSize + this->centerPixel;

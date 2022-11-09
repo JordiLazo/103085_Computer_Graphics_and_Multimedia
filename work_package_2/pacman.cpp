@@ -37,8 +37,7 @@ int main(int argc, char *argv[]) {
     food.insertFood(pixelSize,map);
     insertEnemies();
     map.printMap();
-    Position init = player.startPosition(map);
-    player.createPlayer(pixelSize, pixelSize-14, init);
+    player.createPlayer(pixelSize, pixelSize-14, map);
 //-----------------------------------OPEN GL-----------------------------------//
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
