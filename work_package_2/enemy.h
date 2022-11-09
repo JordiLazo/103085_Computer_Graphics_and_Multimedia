@@ -25,14 +25,17 @@ class Enemy {
         long timeRemaining;
         float vx,vy; //-- Velocity vector
         int key;
+        bool validMove;
+        int direction;
         Enemy();
         void createEnemy(int pixelSize, float pixelSizePlayer,Map map);
         void insertEnemies(int pixelSize, float pixelSizePlayer,Position position);
         void drawEnemies(list<Enemy> listOfEnemies);
         void createEnemyMove(long t);
-        void moveEnemy();
-        void checkValidEnemyMove(int key);
+        void moveEnemy(int key);
+        bool checkValidEnemyMove(int key);
         int randomDirection();
+        void handleKeyboard(int key);
 
 };
 #endif

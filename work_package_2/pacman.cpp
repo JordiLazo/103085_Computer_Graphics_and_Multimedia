@@ -89,6 +89,7 @@ void insertEnemies(){
 void createMoveEnemies(){
     std::list<Enemy>::iterator iteratorEnemy;
     for(iteratorEnemy = listOfEnemies.begin(); iteratorEnemy != listOfEnemies.end(); ++iteratorEnemy){
+        iteratorEnemy->handleKeyboard(iteratorEnemy->randomDirection());
         iteratorEnemy->createEnemyMove(currentTime-lastTime);
     }
 }

@@ -2,8 +2,8 @@
 
 Enemy::Enemy(){}
 void Enemy::createEnemy(int pixelSize, float pixelSizeEnemy,Map map){
-    this->state = MOVE;
-    this->speed = 500.0;
+    this->state = STILL;
+    this->speed = 100.0;
     this-> map = map;
     this->pixelSize = pixelSize;
     this->pixelSizePlayer = pixelSizeEnemy;
@@ -24,25 +24,49 @@ void Enemy::drawEnemies(list<Enemy> listOfEnemies){
     }
 }
 
+void Enemy::handleKeyboard(int key){
+    if (this->state == STILL){
+        if (this->checkValidEnemyMove(key)){
+            this->key = key;
+            this->moveEnemy(key);
+        }
+    }else if(this->state == MOVE) {
+        this->key = key;
+    }
+}
+
+
 void Enemy::createEnemyMove(long currentTime){
     if (this->state == MOVE){
         if(currentTime < timeRemaining) {
             this->x = x + vx*currentTime;
             this->y = y + vy*currentTime;
             timeRemaining -= currentTime;
-            this->moveEnemy();
         } else if(currentTime >= timeRemaining) {
             this->x = x + vx*timeRemaining;
             this->y = y + vy*timeRemaining;
-            this->moveEnemy();
+            if (this->checkValidEnemyMove(this->key)){
+                this->moveEnemy(this->key);
             }else{
-                this->moveEnemy();
+                this->state = MOVE;
             }
         }
     }
-void Enemy::moveEnemy(){
+    }
+void Enemy::moveEnemy(int key){
     this->state = MOVE;
-    this->checkValidEnemyMove(this->randomDirection());
+    if(key == GLUT_KEY_UP){
+        this->currentPositionY--;
+    }
+    if(key == GLUT_KEY_DOWN){
+        this->currentPositionY++;
+    }
+    if(key == GLUT_KEY_LEFT){
+        this->currentPositionX--;
+    }
+    if(key == GLUT_KEY_RIGHT){
+        this->currentPositionX++;
+    }
     int destinationX = this->currentPositionX*this->pixelSize + this->centerPixel;
     int destinationY = this->currentPositionY*this->pixelSize + this->centerPixel;
 
@@ -61,36 +85,40 @@ int Enemy::randomDirection(){
     return directions[randomIndex];
 }
 
-void Enemy::checkValidEnemyMove(int key){
-    if(key == GLUT_KEY_UP){
-        if (!(map.array[this->currentPositionY-1][this->currentPositionX] == WALL || map.array[this->currentPositionY-1][this->currentPositionX] == CENTERWALL)){
-            this->currentPositionY--;
+bool Enemy::checkValidEnemyMove(int key){
+    switch (key) {
+        case GLUT_KEY_UP:
+            if (map.array[this->currentPositionY-1][this->currentPositionX] == PATH){
+                this->validMove = true;
+                return true;
+            } else if (!this->validMove && map.array[this->currentPositionY-1][this->currentPositionX] == BASEPATH){
+                return true;
             }
+            break;
+        case GLUT_KEY_DOWN:
+            if (map.array[this->currentPositionY+1][this->currentPositionX] == PATH){
+                this->validMove = true;
+                return true;
+            } else if (!this->validMove && map.array[this->currentPositionY+1][this->currentPositionX] == BASEPATH){
+                return true;
+            }
+            break;
+        case GLUT_KEY_LEFT:
+            if (map.array[this->currentPositionY][this->currentPositionX-1] == PATH){
+                this->validMove = true;
+                return true;
+            } else if (!this->validMove && map.array[this->currentPositionY][this->currentPositionX-1] == BASEPATH){
+                return true;
+            }
+            break;
+        case GLUT_KEY_RIGHT:
+            if (map.array[this->currentPositionY][this->currentPositionX+1] == PATH){
+                this->validMove = true;
+                return true;
+            } else if (!this->validMove && map.array[this->currentPositionY][this->currentPositionX+1] == BASEPATH){
+                return true;
+            }
+            break;
     }
-    if(key == GLUT_KEY_DOWN){
-        if (!(map.array[this->currentPositionY+1][this->currentPositionX] == WALL || map.array[this->currentPositionY+1][this->currentPositionX] == CENTERWALL)){
-        this->currentPositionY++;
-        }
-    }
-    if(key == GLUT_KEY_LEFT){
-        if (!(map.array[this->currentPositionY][this->currentPositionX-1] == WALL || map.array[this->currentPositionY][this->currentPositionX-1] == CENTERWALL)){
-            this->currentPositionX--;
-        }
-    }
-    if(key == GLUT_KEY_RIGHT){
-        if (!(map.array[this->currentPositionY][this->currentPositionX+1] == WALL || map.array[this->currentPositionY][this->currentPositionX+1] == CENTERWALL)){
-            this->currentPositionX++;
-        }
-    }
+    return false;
 }
-/*
-void Enemy::generate_new_movement(long t){
-    if (t + this->timer_elapsed > this->random_timer){
-        this->timer_elapsed = 0;
-        int new_direction = this->get_random_direction();
-        this->treat_input(new_direction);
-    }else{
-        this->timer_elapsed += t;
-    }
-}
-*/
