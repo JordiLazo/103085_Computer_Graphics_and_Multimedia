@@ -27,6 +27,6 @@ void Food::drawFood(int pixelSize){
     list<Food>::iterator itemFood;
     for (itemFood = foodList.begin(); itemFood != foodList.end(); ++itemFood){
         setColorPixel("SKYBLUE");
-        drawCirclePixel(itemFood->x, itemFood->y, foodSize);
+        drawSquarePixel(itemFood->x, itemFood->y, foodSize);
     }
 }

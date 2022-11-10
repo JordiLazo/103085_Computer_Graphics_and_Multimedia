@@ -1,11 +1,25 @@
 #include"draw.h"
 
+int offset = 0;
+int raised = 0;
+float color_offset = 0;
+int saved_color;
+
+void set_offset(int new_offset){
+    offset = new_offset;
+}
+void drawCirclePixel3D(int radius, int x, int y, int z){
+    glPushMatrix();
+    glTranslatef(x+offset,y,z+offset);
+    glutSolidSphere(radius, 20, 20);
+    glPopMatrix();
+}
 void drawSquarePixel(int j, int i, int size){
     glBegin(GL_QUADS);
-    glVertex2i(j,i);
-    glVertex2i(j,i+size);
-    glVertex2i(j+size, i+size);
-    glVertex2i(j+size, i);
+    glVertex3i(j+offset,0+raised,i+offset);
+    glVertex3i(j+offset,0+raised,i+size+offset);
+    glVertex3i(j+size+offset, 0+raised,i+size+offset);
+    glVertex3i(j+size+offset,0+raised, i+offset);
     glEnd();
 }
 

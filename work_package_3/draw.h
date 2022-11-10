@@ -14,7 +14,10 @@ using namespace std;
 
 #ifndef DRAW
 #define DRAW
+
 void drawSquarePixel(int x, int y, int size);
 void setColorPixel(string color);
 void drawCirclePixel(float x, float y, float radius);
+void drawCirclePixel3D(int radius, int x, int y, int z);
+void set_offset(int new_offset);
 #endif

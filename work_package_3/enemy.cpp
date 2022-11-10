@@ -6,7 +6,7 @@ void Enemy::createEnemy(int pixelSize, float pixelSizeEnemy,Map map){
     this->speed = 100.0;
     this-> map = map;
     this->pixelSize = pixelSize;
-    this->pixelSizePlayer = pixelSizeEnemy;
+    this->pixelSizeEnemy = pixelSizeEnemy;
     this->currentPositionX = map.randomBasePosition().x;
     this->currentPositionY = map.randomBasePosition().y;
     this->position = position;
@@ -21,10 +21,11 @@ void insertEnemies(int pixelSize, float pixelSizePlayer,Position position){
 }
     
 void Enemy::drawEnemies(list<Enemy> listOfEnemies){
-    std::list<Enemy>::iterator enemiesIterator;
-    for(enemiesIterator = listOfEnemies.begin(); enemiesIterator != listOfEnemies.end(); ++enemiesIterator){
+    std::list<Enemy>::iterator enemy;
+    for(enemy = listOfEnemies.begin(); enemy != listOfEnemies.end(); ++enemy){
         setColorPixel("BLACK");
-        drawSquarePixel(enemiesIterator->x,enemiesIterator->y,enemiesIterator->pixelSizePlayer);
+        //drawSquarePixel(enemy->x,enemy->y,enemy->pixelSizePlayer);
+        drawCirclePixel3D(enemy->pixelSizeEnemy/2,(int) enemy->x + pixelSizeEnemy/2,pixelSizeEnemy/2,(int)enemy->y + pixelSizeEnemy/2);
     }
 }
 
