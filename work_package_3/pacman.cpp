@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
     glutInitWindowPosition(50,50);
     set_offset(-300);
     glutInitWindowSize(WIDTH, HEIGHT);
-    glutCreateWindow("Pacman Work Package 2");
+    glutCreateWindow("Pacman Work Package 3");
     glEnable(GL_DEPTH_TEST);
     glutDisplayFunc(display);
     glutSpecialFunc(keyboard);
