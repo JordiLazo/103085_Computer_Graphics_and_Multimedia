@@ -14,8 +14,9 @@ void Player::createPlayer(int pixelSize, float pixelSizePlayer, Map map){
     this->y = this->currentPositionY*pixelSize + this->centerPixel;
 }
 void Player::drawPlayer(){
-    setColorPixel("ORANGE");
-    drawSquarePixel(this->x,this->y,this->pixelSizePlayer);
+    //setColorPixel("ORANGE");
+    set_texture(PLAYERTEXTURE);
+    draw_prism_textured(this->x,0,this->y,this->pixelSizePlayer,this->pixelSizePlayer,this->pixelSizePlayer);
 }
 
 Position Player::startPosition(Map map){

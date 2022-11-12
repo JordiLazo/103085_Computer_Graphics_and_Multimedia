@@ -6,8 +6,8 @@
 #include"enemy.h"
 
 //-----------------------------------MAP SIZE-----------------------------------//
-#define COLUMNS 15
-#define ROWS 15
+#define COLUMNS 22
+#define ROWS 23
 //-----------------------------------WINDOW SIZE-----------------------------------//
 #define WIDTH 1400
 #define HEIGHT 700
@@ -31,10 +31,10 @@ int pixelSize; //pixels size of each position of the map
 int numberOfEnemies;
 long lastTime = 0;
 long currentTime;
-float alpha_angle = 45.0;
-float beta_angle = 45.0;
-int radi_cam = 450;
-float multi = 0.65;
+int anglealpha=90;
+int anglebeta=30;
+int radiusObserver=450;
+float zoom = 2;
 //-----------------------------------MAIN-----------------------------------//
 int main(int argc, char *argv[]) {
 //-----------------------------------SET UP GAME-----------------------------------//
@@ -59,6 +59,20 @@ int main(int argc, char *argv[]) {
     glutIdleFunc(idle);
     glMatrixMode(GL_PROJECTION);
     gluOrtho2D(0,WIDTH-1,HEIGHT-1,0);
+    glBindTexture(GL_TEXTURE_2D,PATHTEXTURE);
+    LoadTexture("textures/path.jpg",64);
+    glBindTexture(GL_TEXTURE_2D,WALLTEXTURE);
+    LoadTexture("textures/wall.jpg",64);
+    glBindTexture(GL_TEXTURE_2D,ENEMYTEXTURE);
+    LoadTexture("textures/enemy.jpg",64);
+    glBindTexture(GL_TEXTURE_2D,CENTERWALLTEXTURE);
+    LoadTexture("textures/centerwall.jpg",64);
+    glBindTexture(GL_TEXTURE_2D,FOODTEXTURE);
+    LoadTexture("textures/food.jpg",64);
+    glBindTexture(GL_TEXTURE_2D,BASEPATHTEXTURE);
+    LoadTexture("textures/basepath.jpg",64);
+    glBindTexture(GL_TEXTURE_2D,PLAYERTEXTURE);
+    LoadTexture("textures/player.jpg",64);
     glutMainLoop();
     return 0;
 }
@@ -68,10 +82,10 @@ void display(){
     glClear(GL_COLOR_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    positionObserver(alpha_angle, beta_angle, radi_cam);
+    positionObserver(anglealpha, anglebeta, radiusObserver);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-WIDTH*multi, WIDTH*multi, -HEIGHT*multi, HEIGHT*multi, 10, 2000);
+    glOrtho(-WIDTH*zoom, WIDTH*zoom, -HEIGHT*zoom, HEIGHT*zoom, 10, 2000);
     glMatrixMode(GL_MODELVIEW);
     glPolygonMode(GL_FRONT, GL_FILL);
     glPolygonMode(GL_BACK, GL_LINE);
@@ -87,40 +101,20 @@ void keyboard(int key, int x, int y){
     glutPostRedisplay();
 }
 void specialKeyboard(unsigned char key, int x, int y){
-      switch (key) {
-        case 'a':
-            alpha_angle += 0.5;
-            if (alpha_angle >= 360.0){
-                alpha_angle -= 360;
-            }
-            break;
-        case 'd':
-            alpha_angle -= 0.5;
-            if (alpha_angle <= 0.0){
-                alpha_angle += 360;
-            }
-            break;
-        case 'w':
-            if (beta_angle < 65.0){
-                beta_angle += 0.5;
-            }
-            break;
-        case 's':
-            if (beta_angle > 30.0){
-                beta_angle -= 0.5;
-            }
-            break;
-        case 'e':
-            if (multi > 0.45){
-                multi -= 0.05;
-            }
-            break;
-        case 'r':
-            if (multi < 0.75){
-                multi += 0.05;
-            }
-            break;
-    }
+  if (key=='w' && anglebeta<=(90-4)){
+    anglebeta=(anglebeta+3);
+  }else if (key=='s' && anglebeta>=(-90+4)){
+    anglebeta=anglebeta-3;
+  }else if (key=='a'){
+    anglealpha=(anglealpha+3)%360;
+  }else if (key=='d'){
+    anglealpha=(anglealpha-3+360)%360;
+  }else if (key=='q'){
+    zoom -= 0.05;
+  }else if (key=='e'){
+    zoom += 0.05;
+  }
+  glutPostRedisplay();
 }
 void idle(){
     currentTime = glutGet(GLUT_ELAPSED_TIME);
@@ -180,42 +174,4 @@ void positionObserver(float alpha,float beta,int radi){
   upz=upz/modul;
 
   gluLookAt(x,y,z,    0.0, 0.0, 0.0,     upx,upy,upz);
-}
-
-
-void keyboard(unsigned char key, int x, int y) {
-    switch (key) {
-        case 'a':
-            alpha_angle += 0.5;
-            if (alpha_angle >= 360.0){
-                alpha_angle -= 360;
-            }
-            break;
-        case 'd':
-            alpha_angle -= 0.5;
-            if (alpha_angle <= 0.0){
-                alpha_angle += 360;
-            }
-            break;
-        case 'w':
-            if (beta_angle < 65.0){
-                beta_angle += 0.5;
-            }
-            break;
-        case 's':
-            if (beta_angle > 30.0){
-                beta_angle -= 0.5;
-            }
-            break;
-        case 'e':
-            if (multi > 0.45){
-                multi -= 0.05;
-            }
-            break;
-        case 'r':
-            if (multi < 0.75){
-                multi += 0.05;
-            }
-            break;
-    }
 }

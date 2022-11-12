@@ -11,20 +11,24 @@ void Map::drawMap(int pixelSize){
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < columns; j++){
             if(this->array[i][j] == PATH){
-                setColorPixel("WHITE");
-                drawSquarePixel(j*pixelSize, i*pixelSize, pixelSize);
+                //setColorPixel("WHITE");
+                //drawSquarePixel(j*pixelSize, i*pixelSize, pixelSize);
+                set_texture(PATHTEXTURE);
+                draw_rectangle_textured(j*pixelSize, i*pixelSize, pixelSize, pixelSize);
             }
             if(this->array[i][j] == WALL){
-                setColorPixel("BLUE");
-                drawSquarePixel(j*pixelSize, i*pixelSize, pixelSize);
+                //setColorPixel("BLUE");
+                //drawSquarePixel(j*pixelSize, i*pixelSize, pixelSize);
+                set_texture(WALLTEXTURE);
+                draw_prism_textured(j*pixelSize, 0, i*pixelSize, pixelSize, pixelSize, pixelSize);
             }
             if(this->array[i][j] == CENTERWALL){
-                setColorPixel("BLACK");
-                drawSquarePixel(j*pixelSize, i*pixelSize, pixelSize);
+                set_texture(CENTERWALLTEXTURE);
+                draw_prism_textured(j*pixelSize, 0, i*pixelSize, pixelSize, pixelSize, pixelSize);
             }
             if(this->array[i][j] == BASEPATH){
-                setColorPixel("WHITE");
-                drawSquarePixel(j*pixelSize, i*pixelSize, pixelSize);
+                set_texture(BASEPATHTEXTURE);
+                draw_rectangle_textured(j*pixelSize, i*pixelSize, pixelSize, pixelSize);
             }
         }
     }

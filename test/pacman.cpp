@@ -15,6 +15,7 @@
 #include"agent.h"
 #include"food.h"
 #include"ghost.h"
+#include"texture.h"
 
 #define PI 3.1416
 
@@ -133,13 +134,19 @@ int main(int argc, char *argv[]) {
     glMatrixMode(GL_PROJECTION);
     gluOrtho2D(0,WIDTH-1,HEIGHT-1,0);
 
+    /*--------Loading textures----*/
+    glBindTexture(GL_TEXTURE_2D,GRASS);
+    LoadTexture("assets/gespa.jpg",64);
+    glBindTexture(GL_TEXTURE_2D,COBBLESTONE);
+    LoadTexture("assets/cobble2.jpg",64);
+    glBindTexture(GL_TEXTURE_2D,TEST);
+    LoadTexture("assets/enemy.jpg",64);
+    /*-----------------------------*/
     glutMainLoop();
     return 0;
 }
 
 void display(){
-
-    // Set wall color as grey
     glClearColor(0.2,0.2,0.2,0.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -323,11 +330,13 @@ void keyboard(unsigned char key, int x, int y) {
             if (multi > 0.45){
                 multi -= 0.05;
             }
+            multi -= 0.05;
             break;
         case 'r':
             if (multi < 0.75){
                 multi += 0.05;
             }
+            multi += 0.05;
             break;
     }
 }

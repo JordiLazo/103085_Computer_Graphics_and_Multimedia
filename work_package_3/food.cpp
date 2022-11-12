@@ -26,7 +26,8 @@ void Food::drawFood(int pixelSize){
     float foodSize = pixelSize/4;
     list<Food>::iterator itemFood;
     for (itemFood = foodList.begin(); itemFood != foodList.end(); ++itemFood){
-        setColorPixel("SKYBLUE");
-        drawSquarePixel(itemFood->x, itemFood->y, foodSize);
+        set_texture(FOODTEXTURE);
+        draw_prism_textured(itemFood->x, 0,itemFood->y, foodSize, foodSize, foodSize);
+        //drawSquarePixel(itemFood->x, itemFood->y, foodSize);
     }
 }
