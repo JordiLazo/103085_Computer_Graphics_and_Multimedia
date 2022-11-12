@@ -9,8 +9,8 @@ LINKING = -lglut -lGLU -lGL -lm -ljpeg
 TARGET = *
 
 all:
-	$(CXX) $(CFLAGS) -o out $(TARGET).cpp $(LINKING)
-	./out
+	$(CXX) $(CFLAGS) -o pacman $(TARGET).cpp $(LINKING)
+	./pacman
 
 clean:
 	$(RM) $(TARGET)
