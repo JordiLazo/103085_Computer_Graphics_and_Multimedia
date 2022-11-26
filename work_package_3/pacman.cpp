@@ -20,7 +20,6 @@ void specialKeyboard(unsigned char key, int x, int y);
 void insertEnemies();
 void createMoveEnemies();
 void positionObserver(float alpha,float beta,int radi);
-void draw_edges();
 //-----------------------------------GLOBAL VARIBALES-----------------------------------//
 Map map;
 Player player;

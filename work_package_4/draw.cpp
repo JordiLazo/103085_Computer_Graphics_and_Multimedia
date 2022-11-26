@@ -11,9 +11,13 @@ void drawTextured2dRectangle(int x, int y, int width, int height){
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D,texture);
     glBegin(GL_QUADS);
+    glNormal3f(0,-1,0);
     glTexCoord2f(0.0,1.0); glVertex3i(x+offset,0+raised,y+offset);
+    glNormal3f(0,-1,0);
     glTexCoord2f(0.0,0.0); glVertex3i(x+offset,0+raised,y+height+offset);
+    glNormal3f(0,-1,0);
     glTexCoord2f(1.0,0.0); glVertex3i(x+width+offset, 0+raised, y+height+offset);
+    glNormal3f(0,-1,0);
     glTexCoord2f(1.0,1.0); glVertex3i(x+width+offset, 0+raised,y+offset);
 
     glEnd();
@@ -26,6 +30,7 @@ void drawTextured3dRectangle(int x, int y, int z, int width, int height, int len
 
     glBegin(GL_QUADS);
     setHeight(height);
+    glNormal3f(0,1,0);
     glTexCoord2f(0.0,1.0); glVertex3i(offset+x, raised+y, offset+z+length);
     glTexCoord2f(0.0,0.0); glVertex3i(offset+x+width, raised+y, offset+z+length);
     glTexCoord2f(1.0,0.0); glVertex3i(offset+x+width, raised+y, offset+z);
@@ -34,6 +39,7 @@ void drawTextured3dRectangle(int x, int y, int z, int width, int height, int len
 
     glBegin(GL_QUADS);
     setHeight(0);
+    glNormal3f(1,0,0);
     glTexCoord2f(0.0,1.0); glVertex3i(offset+x+width, raised+y+height, offset+z);
     glTexCoord2f(0.0,0.0); glVertex3i(offset+x+width, raised+y+height, offset+z+length);
     glTexCoord2f(1.0,0.0); glVertex3i(offset+x+width, raised+y, offset+z+length);
@@ -42,6 +48,7 @@ void drawTextured3dRectangle(int x, int y, int z, int width, int height, int len
 
     glBegin(GL_QUADS);
     setHeight(0);
+    glNormal3f(0,0,1);
     glTexCoord2f(0.0,1.0); glVertex3i(offset+x+width, raised+y, offset+z+length);
     glTexCoord2f(0.0,0.0); glVertex3i(offset+x+width, raised+y+height, offset+z+length);
     glTexCoord2f(1.0,0.0); glVertex3i(offset+x, raised+y+height, offset+z+length);
@@ -50,6 +57,7 @@ void drawTextured3dRectangle(int x, int y, int z, int width, int height, int len
 
     glBegin(GL_QUADS);
     setHeight(0);
+    glNormal3f(-1,0,0);
     glTexCoord2f(0.0,1.0); glVertex3i(offset+x, raised+y, offset+z+length);
     glTexCoord2f(0.0,0.0); glVertex3i(offset+x, raised+y+height, offset+z+length);
     glTexCoord2f(1.0,0.0); glVertex3i(offset+x, raised+y+height, offset+z);
@@ -58,12 +66,20 @@ void drawTextured3dRectangle(int x, int y, int z, int width, int height, int len
 
     glBegin(GL_QUADS);
     setHeight(0);
+    glNormal3f(0,0,-1);
     glTexCoord2f(0.0,1.0); glVertex3i(offset+x, raised+y, offset+z);
     glTexCoord2f(0.0,0.0); glVertex3i(offset+x, raised+y+height, offset+z);
     glTexCoord2f(1.0,0.0); glVertex3i(offset+x+width, raised+y+height, offset+z);
     glTexCoord2f(1.0,1.0); glVertex3i(offset+x+width, raised+y, offset+z);
     glEnd();
     glDisable(GL_TEXTURE_2D);
+}
+
+void drawSphere3d(int radius, int x, int y, int z){
+    glPushMatrix();
+        glTranslatef(x+offset,y,z+offset);
+        glutSolidSphere(radius, 20, 20);
+    glPopMatrix();
 }
 void setOffset(int newOffset){
     offset = newOffset;

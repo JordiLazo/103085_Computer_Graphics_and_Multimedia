@@ -4,6 +4,7 @@
 #include"player.h"
 #include"food.h"
 #include"enemy.h"
+#include"light.h"
 
 //-----------------------------------MAP SIZE-----------------------------------//
 #define COLUMNS 11
@@ -20,7 +21,6 @@ void specialKeyboard(unsigned char key, int x, int y);
 void insertEnemies();
 void createMoveEnemies();
 void positionObserver(float alpha,float beta,int radi);
-void draw_edges();
 //-----------------------------------GLOBAL VARIBALES-----------------------------------//
 Map map;
 Player player;
@@ -45,14 +45,21 @@ int main(int argc, char *argv[]) {
     insertEnemies();
     map.printMap();
     player.createPlayer(pixelSize, pixelSize-(COLUMNS/4), map);
+    player.light = Light();
+    player.light.light_id = GL_LIGHT1;
+    player.light.color = WHITE_LIGHT;
+    player.light.set_direction(-1,0,0);
+    player.light.set_position(player.x, pixelSize, player.y);
 //-----------------------------------OPEN GL-----------------------------------//
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowPosition(50,50);
     setOffset(-400);
+    set_light_offset(-400);
     glutInitWindowSize(WIDTH, HEIGHT);
-    glutCreateWindow("Pacman Work Package 3");
+    glutCreateWindow("Pacman Work Package 4");
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_LIGHTING);
     glutDisplayFunc(display);
     glutSpecialFunc(keyboard);
     glutKeyboardFunc(specialKeyboard);
@@ -79,7 +86,7 @@ int main(int argc, char *argv[]) {
 
 void display(){
     glClearColor(0.2,0.2,0.2,0.0);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     positionObserver(anglealpha, anglebeta, radiusObserver);
@@ -89,10 +96,15 @@ void display(){
     glMatrixMode(GL_MODELVIEW);
     glPolygonMode(GL_FRONT, GL_FILL);
     glPolygonMode(GL_BACK, GL_LINE);
+    set_directional_light(GL_LIGHT0, 0, 0, 0);
+    set_lighting_color(GL_LIGHT0, GL_AMBIENT, AMBIENT_LIGHT);
+    glEnable(GL_LIGHT0);
     map.drawMap(pixelSize);
     food.drawFood(pixelSize);
     enemy.drawEnemies(listOfEnemies);
     player.drawPlayer();
+    player.light.draw();
+    set_material(1.0, 1.0, 1.0);
     glutSwapBuffers();
 }
 //-----------------------------------PLAYER KEYBOARD-----------------------------------//

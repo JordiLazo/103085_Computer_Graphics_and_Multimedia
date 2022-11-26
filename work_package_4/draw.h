@@ -31,6 +31,7 @@ void setColorPixel(string color);
 void setOffset(int newOffset);
 void drawTextured3dRectangle(int x, int y, int z, int width, int height, int length);
 void drawTextured2dRectangle(int x, int y, int width, int height);
+void drawSphere3d(int radius, int x, int y, int z);
 void ReadJPEG(char *filename,unsigned char **image,int *width, int *height);
 void LoadTexture(char *filename,int dim);
 void setTexture(int newTexture);

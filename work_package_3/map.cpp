@@ -16,11 +16,11 @@ void Map::drawMap(int pixelSize){
             }
             if(this->array[i][j] == WALL){
                 setTexture(WALLTEXTURE);
-                drawTextured3dRectangle(j*pixelSize, 0, i*pixelSize, pixelSize, pixelSize, pixelSize);
+                drawTextured3dRectangle(j*pixelSize, 0, i*pixelSize, pixelSize-6, pixelSize, pixelSize);
             }
             if(this->array[i][j] == CENTERWALL){
                 setTexture(CENTERWALLTEXTURE);
-                drawTextured3dRectangle(j*pixelSize, 0, i*pixelSize, pixelSize, pixelSize, pixelSize);
+                drawTextured3dRectangle(j*pixelSize, 0, i*pixelSize, pixelSize-6, pixelSize, pixelSize);
             }
             if(this->array[i][j] == BASEPATH){
                 setTexture(BASEPATHTEXTURE);

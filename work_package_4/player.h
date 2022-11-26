@@ -4,6 +4,7 @@
 #include"map.h"
 #include"food.h"
 #include"enemy.h"
+#include"light.h"
 
 #define QUIET 0
 #define MOVE 1
@@ -32,6 +33,7 @@ class Player {
     bool validMove;
     float vx,vy; //-- Velocity vector
     long timeRemaining;
+    Light light;
 //-----------------------------------FUNCTIONS-----------------------------------//
     Player();
     void createPlayer(int pixelSize, float pixelSizePlayer,Map map);
