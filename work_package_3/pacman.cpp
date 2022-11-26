@@ -49,7 +49,7 @@ int main(int argc, char *argv[]) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
     glutInitWindowPosition(50,50);
-    set_offset(-300);
+    setOffset(-400);
     glutInitWindowSize(WIDTH, HEIGHT);
     glutCreateWindow("Pacman Work Package 3");
     glEnable(GL_DEPTH_TEST);

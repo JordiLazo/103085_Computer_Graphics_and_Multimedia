@@ -2,15 +2,14 @@
 
 int offset = 0;
 int raised = 0;
-float color_offset = 0;
-int saved_color;
-int saved_texture;
+int color;
+int texture;
 
 //-----------------------------------DRAW FUNCTIONS-----------------------------------//
 
 void drawTextured2dRectangle(int x, int y, int width, int height){
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D,saved_texture);
+    glBindTexture(GL_TEXTURE_2D,texture);
     glBegin(GL_QUADS);
     glTexCoord2f(0.0,1.0); glVertex3i(x+offset,0+raised,y+offset);
     glTexCoord2f(0.0,0.0); glVertex3i(x+offset,0+raised,y+height+offset);
@@ -23,10 +22,10 @@ void drawTextured2dRectangle(int x, int y, int width, int height){
 
 void drawTextured3dRectangle(int x, int y, int z, int width, int height, int length){
     glEnable(GL_TEXTURE_2D);
-    glBindTexture(GL_TEXTURE_2D,saved_texture);
+    glBindTexture(GL_TEXTURE_2D,texture);
 
     glBegin(GL_QUADS);
-    set_raised(height);
+    setHeight(height);
     glTexCoord2f(0.0,1.0); glVertex3i(offset+x, raised+y, offset+z+length);
     glTexCoord2f(0.0,0.0); glVertex3i(offset+x+width, raised+y, offset+z+length);
     glTexCoord2f(1.0,0.0); glVertex3i(offset+x+width, raised+y, offset+z);
@@ -34,7 +33,7 @@ void drawTextured3dRectangle(int x, int y, int z, int width, int height, int len
     glEnd();
 
     glBegin(GL_QUADS);
-    set_raised(0);
+    setHeight(0);
     glTexCoord2f(0.0,1.0); glVertex3i(offset+x+width, raised+y+height, offset+z);
     glTexCoord2f(0.0,0.0); glVertex3i(offset+x+width, raised+y+height, offset+z+length);
     glTexCoord2f(1.0,0.0); glVertex3i(offset+x+width, raised+y, offset+z+length);
@@ -42,7 +41,7 @@ void drawTextured3dRectangle(int x, int y, int z, int width, int height, int len
     glEnd();
 
     glBegin(GL_QUADS);
-    set_raised(0);
+    setHeight(0);
     glTexCoord2f(0.0,1.0); glVertex3i(offset+x+width, raised+y, offset+z+length);
     glTexCoord2f(0.0,0.0); glVertex3i(offset+x+width, raised+y+height, offset+z+length);
     glTexCoord2f(1.0,0.0); glVertex3i(offset+x, raised+y+height, offset+z+length);
@@ -50,7 +49,7 @@ void drawTextured3dRectangle(int x, int y, int z, int width, int height, int len
     glEnd();
 
     glBegin(GL_QUADS);
-    set_raised(0);
+    setHeight(0);
     glTexCoord2f(0.0,1.0); glVertex3i(offset+x, raised+y, offset+z+length);
     glTexCoord2f(0.0,0.0); glVertex3i(offset+x, raised+y+height, offset+z+length);
     glTexCoord2f(1.0,0.0); glVertex3i(offset+x, raised+y+height, offset+z);
@@ -58,7 +57,7 @@ void drawTextured3dRectangle(int x, int y, int z, int width, int height, int len
     glEnd();
 
     glBegin(GL_QUADS);
-    set_raised(0);
+    setHeight(0);
     glTexCoord2f(0.0,1.0); glVertex3i(offset+x, raised+y, offset+z);
     glTexCoord2f(0.0,0.0); glVertex3i(offset+x, raised+y+height, offset+z);
     glTexCoord2f(1.0,0.0); glVertex3i(offset+x+width, raised+y+height, offset+z);
@@ -66,14 +65,14 @@ void drawTextured3dRectangle(int x, int y, int z, int width, int height, int len
     glEnd();
     glDisable(GL_TEXTURE_2D);
 }
-void set_offset(int new_offset){
-    offset = new_offset;
+void setOffset(int newOffset){
+    offset = newOffset;
 }
-void set_raised(int new_raised){
-    raised = new_raised;
+void setHeight(int newHeight){
+    raised = newHeight;
 }
-void set_texture(int new_texture){
-    saved_texture = new_texture;
+void setTexture(int newTexture){
+    texture = newTexture;
 }
 
 void setColorPixel(string color){

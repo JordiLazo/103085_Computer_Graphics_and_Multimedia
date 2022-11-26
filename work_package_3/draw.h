@@ -28,11 +28,11 @@ using namespace std;
 #define DRAW
 
 void setColorPixel(string color);
-void set_offset(int new_offset);
+void setOffset(int newOffset);
 void drawTextured3dRectangle(int x, int y, int z, int width, int height, int length);
 void drawTextured2dRectangle(int x, int y, int width, int height);
 void ReadJPEG(char *filename,unsigned char **image,int *width, int *height);
 void LoadTexture(char *filename,int dim);
-void set_texture(int new_texture);
-void set_raised(int new_raised);
+void setTexture(int newTexture);
+void setHeight(int newHeight);
 #endif
