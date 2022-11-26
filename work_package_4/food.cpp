@@ -29,6 +29,7 @@ void Food::drawFood(int pixelSize){
     for (itemFood = foodList.begin(); itemFood != foodList.end(); ++itemFood){
         set_material_id(DARK_GREEN_MATERIAL);
         drawSphere3d(foodSize, itemFood->x, this->pixelSize ,itemFood->y);
+        //setTexture(FOODTEXTURE);
         //drawTextured3dRectangle(itemFood->x, 0,itemFood->y, foodSize, foodSize, foodSize);
     }
 }

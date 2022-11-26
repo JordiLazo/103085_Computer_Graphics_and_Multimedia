@@ -10,19 +10,22 @@ Map::Map(){};
 void Map::drawMap(int pixelSize){
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < columns; j++){
+            /*
             if(this->array[i][j] == PATH){
                 setTexture(PATHTEXTURE);
                 drawTextured2dRectangle(j*pixelSize, i*pixelSize, pixelSize, pixelSize);
             }
+            
             if(this->array[i][j] == WALL){
                 setTexture(WALLTEXTURE);
                 drawTextured3dRectangle(j*pixelSize, 0, i*pixelSize, pixelSize-6, pixelSize, pixelSize);
             }
-            if(this->array[i][j] == CENTERWALL){
+            */
+            if(this->array[i][j] == CENTERWALL || this->array[i][j] == WALL){
                 setTexture(CENTERWALLTEXTURE);
                 drawTextured3dRectangle(j*pixelSize, 0, i*pixelSize, pixelSize-6, pixelSize, pixelSize);
             }
-            if(this->array[i][j] == BASEPATH){
+            if(this->array[i][j] == BASEPATH || this->array[i][j] == PATH){
                 setTexture(BASEPATHTEXTURE);
                 drawTextured2dRectangle(j*pixelSize, i*pixelSize, pixelSize, pixelSize);
             }

@@ -21,12 +21,13 @@ class Player {
     int pixelSize;
     float pixelSizePlayer;
     Map map;
-    int x;
-    int y;
+    float x;
+    float y;
     int state;
     float speed;
     int currentPositionX;
     int currentPositionY;
+    Position currentPosition;
     float centerPixel;
     int key;
     int direction;
@@ -36,7 +37,7 @@ class Player {
     Light light;
 //-----------------------------------FUNCTIONS-----------------------------------//
     Player();
-    void createPlayer(int pixelSize, float pixelSizePlayer,Map map);
+    void createPlayer(int pixelSize, float pixelSizePlayer,Map map, Position startingPosition);
     void drawPlayer();
     Position startPosition(Map map);
     void handleKeyboard(int key);

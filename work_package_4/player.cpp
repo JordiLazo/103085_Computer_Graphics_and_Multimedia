@@ -1,21 +1,23 @@
 #include "player.h"
 
 Player::Player(){}
-void Player::createPlayer(int pixelSize, float pixelSizePlayer, Map map){
+void Player::createPlayer(int pixelSize, float pixelSizePlayer, Map map, Position startPosition){
     this->state = QUIET;
     this->speed = 100.0;
     this->pixelSize = pixelSize;
     this->map = map;
     this->pixelSizePlayer = pixelSizePlayer;
-    this->currentPositionX = map.randomBasePositionPlayer().x;
-    this->currentPositionY = map.randomBasePositionPlayer().y;
-    this->centerPixel = pixelSize - pixelSizePlayer;
+    this->currentPositionX = startPosition.x;
+    this->currentPositionY = startPosition.y;
+    this->centerPixel = pixelSize/2 - pixelSizePlayer/2;
     this->x = this->currentPositionX*pixelSize + this->centerPixel;
     this->y = this->currentPositionY*pixelSize + this->centerPixel;
 }
 void Player::drawPlayer(){
-    setTexture(PLAYERTEXTURE);
-    drawTextured3dRectangle(this->x,0,this->y,this->pixelSizePlayer,this->pixelSizePlayer,this->pixelSizePlayer);
+    //setTexture(PLAYERTEXTURE);
+    //drawTextured3dRectangle(this->x,0,this->y,this->pixelSizePlayer,this->pixelSizePlayer,this->pixelSizePlayer);
+    set_material_id(RED_CRAYOLA_MATERIAL);
+    drawSphere3d(pixelSizePlayer / 2, (int) x + pixelSizePlayer/2, pixelSizePlayer/2,(int) y + pixelSizePlayer/2);
 }
 
 void Player::handleKeyboard(int key){
@@ -41,7 +43,6 @@ void Player::move(int key){
     if(key == GLUT_KEY_RIGHT){
         this->currentPositionX++;
     }
-
     int destinationX = this->currentPositionX*this->pixelSize + this->centerPixel;
     int destinationY = this->currentPositionY*this->pixelSize + this->centerPixel;
 
@@ -87,6 +88,7 @@ void Player::createMove(long currentTime){
             }
         }
     }
+    this->light.set_position(this->x, this->pixelSize, this->y);
 }
 
 bool Player::checkUpMove(int key){

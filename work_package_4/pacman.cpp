@@ -7,8 +7,8 @@
 #include"light.h"
 
 //-----------------------------------MAP SIZE-----------------------------------//
-#define COLUMNS 11
-#define ROWS 11
+#define COLUMNS 15
+#define ROWS 15
 //-----------------------------------WINDOW SIZE-----------------------------------//
 #define WIDTH 1400
 #define HEIGHT 700
@@ -44,18 +44,20 @@ int main(int argc, char *argv[]) {
     food.insertFood(pixelSize,map);
     insertEnemies();
     map.printMap();
-    player.createPlayer(pixelSize, pixelSize-(COLUMNS/4), map);
+    Position randomPositionPlayer = map.randomBasePositionPlayer();
+    player.createPlayer(pixelSize, pixelSize-(COLUMNS/4), map, randomPositionPlayer);
     player.light = Light();
     player.light.light_id = GL_LIGHT1;
     player.light.color = WHITE_LIGHT;
     player.light.set_direction(-1,0,0);
     player.light.set_position(player.x, pixelSize, player.y);
+    printf("sdfsf: %f",player.x);
 //-----------------------------------OPEN GL-----------------------------------//
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowPosition(50,50);
-    setOffset(-400);
-    set_light_offset(-400);
+    setOffset(-200);
+    set_light_offset(-200);
     glutInitWindowSize(WIDTH, HEIGHT);
     glutCreateWindow("Pacman Work Package 4");
     glEnable(GL_DEPTH_TEST);
@@ -66,10 +68,11 @@ int main(int argc, char *argv[]) {
     glutIdleFunc(idle);
     glMatrixMode(GL_PROJECTION);
     gluOrtho2D(0,WIDTH-1,HEIGHT-1,0);
-    glBindTexture(GL_TEXTURE_2D,PATHTEXTURE);
+    glBindTexture(GL_TEXTURE_2D,BASEPATHTEXTURE);
     LoadTexture("textures/path.jpg",64);
-    glBindTexture(GL_TEXTURE_2D,WALLTEXTURE);
+    glBindTexture(GL_TEXTURE_2D,CENTERWALLTEXTURE);
     LoadTexture("textures/wall.jpg",64);
+    /*
     glBindTexture(GL_TEXTURE_2D,ENEMYTEXTURE);
     LoadTexture("textures/enemy.jpg",64);
     glBindTexture(GL_TEXTURE_2D,CENTERWALLTEXTURE);
@@ -80,6 +83,7 @@ int main(int argc, char *argv[]) {
     LoadTexture("textures/basepath.jpg",64);
     glBindTexture(GL_TEXTURE_2D,PLAYERTEXTURE);
     LoadTexture("textures/player.jpg",64);
+    */
     glutMainLoop();
     return 0;
 }
