@@ -3,6 +3,7 @@
 #include"position.h"
 #include"map.h"
 #include"food.h"
+#include"enemy.h"
 
 #define QUIET 0
 #define MOVE 1
@@ -45,6 +46,7 @@ class Player {
     bool checkRightMove(int key);
     void createMove(long t);
     void foodCollision(list<Food> *foodList);
-    bool checkFoodCollision(Position object1, Position object2);
+    void enemyCollision(list<Enemy> *enemyList);
+    bool checkCollition(Position object1, Position object2);
 };
 #endif

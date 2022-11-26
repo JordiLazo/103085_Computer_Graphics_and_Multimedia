@@ -11,24 +11,20 @@ void Map::drawMap(int pixelSize){
     for(int i = 0; i < rows; i++){
         for(int j = 0; j < columns; j++){
             if(this->array[i][j] == PATH){
-                //setColorPixel("WHITE");
-                //drawSquarePixel(j*pixelSize, i*pixelSize, pixelSize);
                 set_texture(PATHTEXTURE);
-                draw_rectangle_textured(j*pixelSize, i*pixelSize, pixelSize, pixelSize);
+                drawTextured2dRectangle(j*pixelSize, i*pixelSize, pixelSize, pixelSize);
             }
             if(this->array[i][j] == WALL){
-                //setColorPixel("BLUE");
-                //drawSquarePixel(j*pixelSize, i*pixelSize, pixelSize);
                 set_texture(WALLTEXTURE);
-                draw_prism_textured(j*pixelSize, 0, i*pixelSize, pixelSize, pixelSize, pixelSize);
+                drawTextured3dRectangle(j*pixelSize, 0, i*pixelSize, pixelSize, pixelSize, pixelSize);
             }
             if(this->array[i][j] == CENTERWALL){
                 set_texture(CENTERWALLTEXTURE);
-                draw_prism_textured(j*pixelSize, 0, i*pixelSize, pixelSize, pixelSize, pixelSize);
+                drawTextured3dRectangle(j*pixelSize, 0, i*pixelSize, pixelSize, pixelSize, pixelSize);
             }
             if(this->array[i][j] == BASEPATH){
                 set_texture(BASEPATHTEXTURE);
-                draw_rectangle_textured(j*pixelSize, i*pixelSize, pixelSize, pixelSize);
+                drawTextured2dRectangle(j*pixelSize, i*pixelSize, pixelSize, pixelSize);
             }
         }
     }
@@ -43,8 +39,7 @@ void Map::printMap(){
     }
 }
 
-Position Map::randomBasePosition(){
-    srand(clock());
+Position Map::randomBasePositionEnemy(){
     bool validPosition = false;
     while (!validPosition) {
         int x = rand() % this->rows;
@@ -54,7 +49,17 @@ Position Map::randomBasePosition(){
             return Position(y, x);
         }
     }
-    return Position(10,10);
+}
+Position Map::randomBasePositionPlayer(){
+    bool validPosition = false;
+    while (!validPosition) {
+        int x = rand() % this->rows;
+        int y = rand() % this->columns;
+        if (this->array[x][y] == PATH){
+            validPosition = true;
+            return Position(y, x);
+        }
+    }
 }
 Position Map::exitBasePostion(){
     return this->positionExitBasePostion;

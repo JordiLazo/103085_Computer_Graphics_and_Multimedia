@@ -6,8 +6,8 @@
 #include"enemy.h"
 
 //-----------------------------------MAP SIZE-----------------------------------//
-#define COLUMNS 22
-#define ROWS 23
+#define COLUMNS 11
+#define ROWS 11
 //-----------------------------------WINDOW SIZE-----------------------------------//
 #define WIDTH 1400
 #define HEIGHT 700
@@ -95,11 +95,12 @@ void display(){
     player.drawPlayer();
     glutSwapBuffers();
 }
-
+//-----------------------------------PLAYER KEYBOARD-----------------------------------//
 void keyboard(int key, int x, int y){
     player.handleKeyboard(key);
     glutPostRedisplay();
 }
+//-----------------------------------OBSERVER KEYBOARD-----------------------------------//
 void specialKeyboard(unsigned char key, int x, int y){
   if (key=='w' && anglebeta<=(90-4)){
     anglebeta=(anglebeta+3);
@@ -113,30 +114,10 @@ void specialKeyboard(unsigned char key, int x, int y){
     zoom -= 0.05;
   }else if (key=='e'){
     zoom += 0.05;
+  }else if (key==27){
+    exit(0);
   }
   glutPostRedisplay();
-}
-void idle(){
-    currentTime = glutGet(GLUT_ELAPSED_TIME);
-    player.createMove(currentTime-lastTime);
-    player.foodCollision(&food.foodList);
-    createMoveEnemies();
-    lastTime = currentTime;
-    glutPostRedisplay();
-}
-
-void insertEnemies(){
-    for(int i = 0;i<numberOfEnemies;i++){
-        enemy.createEnemy(pixelSize,pixelSize-14,map);
-        listOfEnemies.push_back(enemy);
-    }
-}
-void createMoveEnemies(){
-    std::list<Enemy>::iterator iteratorEnemy;
-    for(iteratorEnemy = listOfEnemies.begin(); iteratorEnemy != listOfEnemies.end(); ++iteratorEnemy){
-        iteratorEnemy->handleKeyboard(iteratorEnemy->randomDirection());
-        iteratorEnemy->createEnemyMove(currentTime-lastTime);
-    }
 }
 void positionObserver(float alpha,float beta,int radi){
   float x,y,z;
@@ -174,4 +155,28 @@ void positionObserver(float alpha,float beta,int radi){
   upz=upz/modul;
 
   gluLookAt(x,y,z,    0.0, 0.0, 0.0,     upx,upy,upz);
+}
+
+void idle(){
+    currentTime = glutGet(GLUT_ELAPSED_TIME);
+    player.createMove(currentTime-lastTime);
+    player.foodCollision(&food.foodList);
+    player.enemyCollision(&listOfEnemies);
+    createMoveEnemies();
+    lastTime = currentTime;
+    glutPostRedisplay();
+}
+//-----------------------------------ENEMY FUNCTIONS-----------------------------------//
+void insertEnemies(){
+    for(int i = 0;i<numberOfEnemies;i++){
+        enemy.createEnemy(pixelSize,pixelSize-14,map);
+        listOfEnemies.push_back(enemy);
+    }
+}
+void createMoveEnemies(){
+    std::list<Enemy>::iterator iteratorEnemy;
+    for(iteratorEnemy = listOfEnemies.begin(); iteratorEnemy != listOfEnemies.end(); ++iteratorEnemy){
+        iteratorEnemy->handleKeyboard(iteratorEnemy->randomDirection());
+        iteratorEnemy->createEnemyMove(currentTime-lastTime);
+    }
 }

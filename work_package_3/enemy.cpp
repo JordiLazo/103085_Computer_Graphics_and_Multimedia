@@ -7,8 +7,8 @@ void Enemy::createEnemy(int pixelSize, float pixelSizeEnemy,Map map){
     this-> map = map;
     this->pixelSize = pixelSize;
     this->pixelSizeEnemy = pixelSizeEnemy;
-    this->currentPositionX = map.randomBasePosition().x;
-    this->currentPositionY = map.randomBasePosition().y;
+    this->currentPositionX = map.randomBasePositionEnemy().x;
+    this->currentPositionY = map.randomBasePositionEnemy().y;
     this->position = position;
     this->centerPixel = (pixelSize/2) - (pixelSizeEnemy/2);
     this->x = this->currentPositionX*pixelSize + this->centerPixel;
@@ -23,11 +23,8 @@ void insertEnemies(int pixelSize, float pixelSizePlayer,Position position){
 void Enemy::drawEnemies(list<Enemy> listOfEnemies){
     std::list<Enemy>::iterator enemy;
     for(enemy = listOfEnemies.begin(); enemy != listOfEnemies.end(); ++enemy){
-        //setColorPixel("BLACK");
         set_texture(ENEMYTEXTURE);
-        //drawSquarePixel(enemy->x,enemy->y,enemy->pixelSizePlayer);
-        //drawCirclePixel3D(enemy->pixelSizeEnemy/2,(int) enemy->x + pixelSizeEnemy/2,pixelSizeEnemy/2,(int)enemy->y + pixelSizeEnemy/2);
-        draw_prism_textured(enemy->x,0,enemy->y,enemy->pixelSizeEnemy,enemy->pixelSizeEnemy,enemy->pixelSizeEnemy);
+        drawTextured3dRectangle(enemy->x,0,enemy->y,enemy->pixelSizeEnemy,enemy->pixelSizeEnemy,enemy->pixelSizeEnemy);
     }
 }
 

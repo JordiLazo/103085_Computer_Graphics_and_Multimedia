@@ -9,7 +9,8 @@ Food::Food(float x, float y, float pixelSize){
 
 void Food::insertFood(int pixelSize, Map map){
     float foodSize = pixelSize;//pixel foodSize
-    float foodSizeCenter = foodSize/6;//center of the pixel foodSize
+    foodSize = ((int)foodSize % 2 == 0) ? foodSize +1: foodSize;
+    float foodSizeCenter = foodSize/2;//center of the pixel foodSize
     float centerPixelSize = pixelSize/2;
     for(int i = 0; i < map.rows; i++){
         for(int j = 0; j < map.columns; j++){
@@ -23,11 +24,10 @@ void Food::insertFood(int pixelSize, Map map){
 }
 
 void Food::drawFood(int pixelSize){
-    float foodSize = pixelSize/4;
+    float foodSize = pixelSize/2;
     list<Food>::iterator itemFood;
     for (itemFood = foodList.begin(); itemFood != foodList.end(); ++itemFood){
         set_texture(FOODTEXTURE);
-        draw_prism_textured(itemFood->x, 0,itemFood->y, foodSize, foodSize, foodSize);
-        //drawSquarePixel(itemFood->x, itemFood->y, foodSize);
+        drawTextured3dRectangle(itemFood->x, 0,itemFood->y, foodSize, foodSize, foodSize);
     }
 }

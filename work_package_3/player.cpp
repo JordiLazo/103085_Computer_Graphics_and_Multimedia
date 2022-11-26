@@ -7,8 +7,8 @@ void Player::createPlayer(int pixelSize, float pixelSizePlayer, Map map){
     this->pixelSize = pixelSize;
     this->map = map;
     this->pixelSizePlayer = pixelSizePlayer;
-    this->currentPositionX = this->startPosition(this->map).x;
-    this->currentPositionY = this->startPosition(this->map).y;
+    this->currentPositionX = map.randomBasePositionPlayer().x;
+    this->currentPositionY = map.randomBasePositionPlayer().y;
     this->centerPixel = pixelSize - pixelSizePlayer;
     this->x = this->currentPositionX*pixelSize + this->centerPixel;
     this->y = this->currentPositionY*pixelSize + this->centerPixel;
@@ -16,22 +16,7 @@ void Player::createPlayer(int pixelSize, float pixelSizePlayer, Map map){
 void Player::drawPlayer(){
     //setColorPixel("ORANGE");
     set_texture(PLAYERTEXTURE);
-    draw_prism_textured(this->x,0,this->y,this->pixelSizePlayer,this->pixelSizePlayer,this->pixelSizePlayer);
-}
-
-Position Player::startPosition(Map map){
-    this->map = map;
-    srand(clock());
-    bool validPosition = false;
-    while (!validPosition) {
-        int x = rand() % this->map.rows;
-        int y = rand() % this->map.columns;
-        if (this->map.array[x][y] == PATH){
-            validPosition = true;
-            return Position(y, x);
-        }
-    }
-    return Position(10,10);
+    drawTextured3dRectangle(this->x,0,this->y,this->pixelSizePlayer,this->pixelSizePlayer,this->pixelSizePlayer);
 }
 
 void Player::handleKeyboard(int key){
@@ -143,18 +128,28 @@ void Player::foodCollision(list<Food> *foodList){
     for (foodItem = foodList->begin(); foodItem != foodList->end(); ++foodItem){
         Position playerPosition = Position(this->x, this->y);
         Position foodPosition = Position(foodItem->x, foodItem->y);
-        if(checkFoodCollision(playerPosition, foodPosition)) {
+        if(checkCollition(playerPosition, foodPosition)) {
             foodItem = foodList->erase(foodItem);
+        }if(foodList->empty()){
+            printf("---VICTORY---\n");
+            exit(0);
         }
     }
 }
-bool Player::checkFoodCollision(Position playerPosition, Position foodPosition){
-    float distancePixels = pixelSize/2;
-    float distanceX = abs(playerPosition.x - foodPosition.x);
-    float distanceY = abs(playerPosition.y - foodPosition.y);
-    if(distanceX + distanceY <= distancePixels){
-        return true;
-    }else{
-        return false;
+void Player::enemyCollision(list<Enemy> *foodList){
+    std::list<Enemy>::iterator foodItem;
+    for (foodItem = foodList->begin(); foodItem != foodList->end(); ++foodItem){
+        Position playerPosition = Position(this->x, this->y);
+        Position foodPosition = Position(foodItem->x, foodItem->y);
+        if(checkCollition(playerPosition, foodPosition)) {
+            printf("---DEFEAT---\n");
+            exit(0);
+        }
     }
+}
+bool Player::checkCollition(Position playerPosition, Position foodPosition){
+    float distanceX = pow(playerPosition.x - foodPosition.x,2);
+    float distanceY = pow(playerPosition.y - foodPosition.y,2);
+    float finalDistance = sqrt(distanceX + distanceY);
+    return finalDistance <= (this->pixelSizePlayer / 2);
 }

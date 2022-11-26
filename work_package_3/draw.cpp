@@ -8,11 +8,10 @@ int saved_texture;
 
 //-----------------------------------DRAW FUNCTIONS-----------------------------------//
 
-void draw_rectangle_textured(int x, int y, int width, int height){
+void drawTextured2dRectangle(int x, int y, int width, int height){
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D,saved_texture);
     glBegin(GL_QUADS);
-
     glTexCoord2f(0.0,1.0); glVertex3i(x+offset,0+raised,y+offset);
     glTexCoord2f(0.0,0.0); glVertex3i(x+offset,0+raised,y+height+offset);
     glTexCoord2f(1.0,0.0); glVertex3i(x+width+offset, 0+raised, y+height+offset);
@@ -21,16 +20,11 @@ void draw_rectangle_textured(int x, int y, int width, int height){
     glEnd();
     glDisable(GL_TEXTURE_2D);
 }
-void drawCube(int size, int x, int y, int z){
-    glPushMatrix();
-        glTranslatef(x+offset,y,z+offset);
-        glutSolidCube(size);
-    glPopMatrix();
-}
-void draw_prism_textured(int x, int y, int z, int width, int height, int length){
+
+void drawTextured3dRectangle(int x, int y, int z, int width, int height, int length){
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D,saved_texture);
-    // Quadrat 6
+
     glBegin(GL_QUADS);
     set_raised(height);
     glTexCoord2f(0.0,1.0); glVertex3i(offset+x, raised+y, offset+z+length);
@@ -39,7 +33,6 @@ void draw_prism_textured(int x, int y, int z, int width, int height, int length)
     glTexCoord2f(1.0,1.0);glVertex3i(offset+x, raised+y, offset+z);
     glEnd();
 
-    // Quadrat 1
     glBegin(GL_QUADS);
     set_raised(0);
     glTexCoord2f(0.0,1.0); glVertex3i(offset+x+width, raised+y+height, offset+z);
@@ -48,7 +41,6 @@ void draw_prism_textured(int x, int y, int z, int width, int height, int length)
     glTexCoord2f(1.0,1.0); glVertex3i(offset+x+width, raised+y, offset+z);
     glEnd();
 
-    // Quadrat 5
     glBegin(GL_QUADS);
     set_raised(0);
     glTexCoord2f(0.0,1.0); glVertex3i(offset+x+width, raised+y, offset+z+length);
@@ -57,7 +49,6 @@ void draw_prism_textured(int x, int y, int z, int width, int height, int length)
     glTexCoord2f(1.0,1.0); glVertex3i(offset+x, raised+y, offset+z+length);
     glEnd();
 
-    // Quadrat 2
     glBegin(GL_QUADS);
     set_raised(0);
     glTexCoord2f(0.0,1.0); glVertex3i(offset+x, raised+y, offset+z+length);
@@ -66,7 +57,6 @@ void draw_prism_textured(int x, int y, int z, int width, int height, int length)
     glTexCoord2f(1.0,1.0); glVertex3i(offset+x, raised+y, offset+z);
     glEnd();
 
-    // Quadrat 3
     glBegin(GL_QUADS);
     set_raised(0);
     glTexCoord2f(0.0,1.0); glVertex3i(offset+x, raised+y, offset+z);
@@ -84,20 +74,6 @@ void set_raised(int new_raised){
 }
 void set_texture(int new_texture){
     saved_texture = new_texture;
-}
-void drawCirclePixel3D(int radius, int x, int y, int z){
-    glPushMatrix();
-    glTranslatef(x+offset,y,z+offset);
-    glutSolidSphere(radius, 20, 20);
-    glPopMatrix();
-}
-void drawSquarePixel(int j, int i, int size){
-    glBegin(GL_QUADS);
-    glVertex3i(j+offset,0+raised,i+offset);
-    glVertex3i(j+offset,0+raised,i+size+offset);
-    glVertex3i(j+size+offset, 0+raised,i+size+offset);
-    glVertex3i(j+size+offset,0+raised, i+offset);
-    glEnd();
 }
 
 void setColorPixel(string color){
@@ -125,20 +101,6 @@ void setColorPixel(string color){
     if(color == "SKYBLUE"){
         glColor3f(0.0f, 0.5f, 0.5f);
     }
-}
-void drawCirclePixel(float x, float y, float radius){
-	int triangleAmount = 20; //# of triangles used to draw circle
-	//GLfloat radius = 0.8f; //radius
-	GLfloat twicePi = 2.0f * PI;
-	glBegin(GL_TRIANGLE_FAN);
-	glVertex2f(x, y); // center of circle
-    for(int i = 0; i <= triangleAmount;i++) { 
-        glVertex2f(
-            x + (radius * cos(i * twicePi / triangleAmount)), 
-            y + (radius * sin(i * twicePi / triangleAmount))
-			);
-		}
-	glEnd();
 }
 //-----------------------------------TEXTURES FUNCTIONS-----------------------------------//
 void ReadJPEG(char *filename,unsigned char **image,int *width, int *height)

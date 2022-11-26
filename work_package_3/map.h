@@ -27,7 +27,8 @@ public:
 //-----FUNCTIONS-----//
     Map();
     Map(int columnsMap, int rowsMap);
-    Position randomBasePosition();
+    Position randomBasePositionEnemy();
+    Position randomBasePositionPlayer();
     Position exitBasePostion();
 //-------DRAW MAP-------//
     void drawMap(int pixelSize);
