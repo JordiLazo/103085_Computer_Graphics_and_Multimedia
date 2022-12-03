@@ -4,7 +4,7 @@
 #include"map.h"
 #include"food.h"
 #include"enemy.h"
-#include"light.h"
+#include"spotlight.h"
 
 #define QUIET 0
 #define MOVE 1

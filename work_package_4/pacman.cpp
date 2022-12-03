@@ -4,7 +4,7 @@
 #include"player.h"
 #include"food.h"
 #include"enemy.h"
-#include"light.h"
+#include"spotlight.h"
 //-----------------------------------MAP SIZE-----------------------------------//
 #define COLUMNS 10
 #define ROWS 10
@@ -58,7 +58,6 @@ int main(int argc, char *argv[]) {
     Position randomPositionPlayer = map.randomBasePositionPlayer();
     player.createPlayer(pixelSize, pixelSize-(COLUMNS/4), map, randomPositionPlayer);
     player.light = Light();
-    player.light.color = WHITE_LIGHT;
     player.light.setDirectionCharacterLight(UP);
     player.light.setCharacterLight(player.x, pixelSize, player.y);
     positionAmbientLight[0]=0; positionAmbientLight[1]=0; positionAmbientLight[2]=0; positionAmbientLight[3]=0;

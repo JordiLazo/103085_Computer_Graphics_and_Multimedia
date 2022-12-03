@@ -2,7 +2,6 @@
 #include<list>
 #include"position.h"
 #include"map.h"
-#include"light.h"
 
 #define QUIET 0
 #define MOVE 1

@@ -1,7 +1,6 @@
 #include<list>
 #include"map.h"
-#include "light.h"
-
+#include"spotlight.h"
 #ifndef FOOD
 #define FOOD
 
