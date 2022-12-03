@@ -13,30 +13,21 @@ using namespace std;
 #define DARK_GREEN_MATERIAL -3
 
 void set_lighting_color(int light_id, int parameter, int color);
-
 void set_light_position(int light_id, int x, int y, int z);
-void set_directional_light(int light_id, int x, int y, int z);
-
-void set_material_id(int material_id);
-
-double scale_l(int input);
-
-void set_light_offset(int offset);
 
 class Light {
     public:
     Light();
-
-    float x, y, z;
-    int dx, dy, dz;
+    int lightX;
+    int lightY;
+    int lightZ;
+    int x;
+    int y;
+    int z;    
     int color;
-
     int light_id;
-
-    void draw();
-
-    void set_position(float x, float y, float z);
-    void set_direction(int dx, int dy, int dz);
+    void illuminati();
+    void setPlayerLight(int x, int y, int z);
+    void setDirectionPlayerLight(int array[]);
 };
-
 #endif

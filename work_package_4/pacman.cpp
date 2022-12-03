@@ -31,8 +31,8 @@ int numberOfEnemies;
 long lastTime = 0;
 long currentTime;
 int anglealpha=90;
-int anglebeta=30;
-int radiusObserver=450;
+int anglebeta=70;
+int radiusObserver=550;
 float zoom = 2;
 char PATHTEXTUREFILE[] = "textures/path.jpg";
 char WALLTEXTUREFILE[] = "textures/wall.jpg";
@@ -41,6 +41,10 @@ char BASEPATHTEXTUREFILE[] = "textures/basepath.jpg";
 char ENEMYTEXTUREFILE[] = "textures/enemy.jpg";
 char FOODTEXTUREFILE[] = "textures/food.jpg";
 char PLAYERTEXTUREFILE[] = "textures/player.jpg";
+int UP[] = {0,0,-1};
+int LEFT[] = {-1,0,0};
+GLint positionAmbientLight[4];
+GLfloat colorAmbientLight[4];
 //-----------------------------------MAIN-----------------------------------//
 int main(int argc, char *argv[]) {
 //-----------------------------------SET UP GAME-----------------------------------//
@@ -55,14 +59,15 @@ int main(int argc, char *argv[]) {
     player.light = Light();
     player.light.light_id = GL_LIGHT1;
     player.light.color = WHITE_LIGHT;
-    player.light.set_direction(-1,0,0);
-    player.light.set_position(player.x, pixelSize, player.y);
+    player.light.setDirectionPlayerLight(UP);
+    player.light.setPlayerLight(player.x, pixelSize, player.y);
+    positionAmbientLight[0]=0; positionAmbientLight[1]=0; positionAmbientLight[2]=0; positionAmbientLight[3]=0;
+    colorAmbientLight[0]=0.95; colorAmbientLight[1]= 0.65; colorAmbientLight[2]=0.09; colorAmbientLight[3]=1.0;
+
 //-----------------------------------OPEN GL-----------------------------------//
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowPosition(50,50);
-    setOffset(-200);
-    set_light_offset(-200);
     glutInitWindowSize(WIDTH, HEIGHT);
     glutCreateWindow("Pacman Work Package 4");
     glEnable(GL_DEPTH_TEST);
@@ -99,19 +104,19 @@ void display(){
     positionObserver(anglealpha, anglebeta, radiusObserver);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    glOrtho(-WIDTH*zoom, WIDTH*zoom, -HEIGHT*zoom, HEIGHT*zoom, 10, 2000);
+    glOrtho(-WIDTH*zoom, WIDTH*zoom, -HEIGHT*zoom, HEIGHT*zoom, 50, 1000);
     glMatrixMode(GL_MODELVIEW);
     glPolygonMode(GL_FRONT, GL_FILL);
     glPolygonMode(GL_BACK, GL_LINE);
-    set_directional_light(GL_LIGHT0, 0, 0, 0);
+    glLightiv(GL_LIGHT0,GL_POSITION,positionAmbientLight);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, colorAmbientLight);
     set_lighting_color(GL_LIGHT0, GL_AMBIENT, AMBIENT_LIGHT);
     glEnable(GL_LIGHT0);
     map.drawMap(pixelSize);
     food.drawFood(pixelSize);
     enemy.drawEnemies(listOfEnemies);
     player.drawPlayer();
-    player.light.draw();
-    set_material_id(FULVOUS_MATERIAL);
+    player.light.illuminati();
     glutSwapBuffers();
 }
 //-----------------------------------PLAYER KEYBOARD-----------------------------------//
