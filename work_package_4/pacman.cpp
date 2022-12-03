@@ -45,6 +45,7 @@ int UP[] = {0,0,-1};
 int LEFT[] = {-1,0,0};
 GLint positionAmbientLight[4];
 GLfloat colorAmbientLight[4];
+GLfloat colorLight[4];
 //-----------------------------------MAIN-----------------------------------//
 int main(int argc, char *argv[]) {
 //-----------------------------------SET UP GAME-----------------------------------//
@@ -57,13 +58,12 @@ int main(int argc, char *argv[]) {
     Position randomPositionPlayer = map.randomBasePositionPlayer();
     player.createPlayer(pixelSize, pixelSize-(COLUMNS/4), map, randomPositionPlayer);
     player.light = Light();
-    player.light.light_id = GL_LIGHT1;
     player.light.color = WHITE_LIGHT;
-    player.light.setDirectionPlayerLight(UP);
-    player.light.setPlayerLight(player.x, pixelSize, player.y);
+    player.light.setDirectionCharacterLight(UP);
+    player.light.setCharacterLight(player.x, pixelSize, player.y);
     positionAmbientLight[0]=0; positionAmbientLight[1]=0; positionAmbientLight[2]=0; positionAmbientLight[3]=0;
     colorAmbientLight[0]=0.95; colorAmbientLight[1]= 0.65; colorAmbientLight[2]=0.09; colorAmbientLight[3]=1.0;
-
+    colorLight[0]=1.0; colorLight[1]=1.0; colorLight[2]=1.0; colorLight[3]=1;
 //-----------------------------------OPEN GL-----------------------------------//
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
@@ -109,8 +109,9 @@ void display(){
     glPolygonMode(GL_FRONT, GL_FILL);
     glPolygonMode(GL_BACK, GL_LINE);
     glLightiv(GL_LIGHT0,GL_POSITION,positionAmbientLight);
+    glLightfv(GL_LIGHT1,GL_DIFFUSE,colorLight);
+    glLightfv(GL_LIGHT1,GL_DIFFUSE,colorLight);
     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, colorAmbientLight);
-    set_lighting_color(GL_LIGHT0, GL_AMBIENT, AMBIENT_LIGHT);
     glEnable(GL_LIGHT0);
     map.drawMap(pixelSize);
     food.drawFood(pixelSize);
