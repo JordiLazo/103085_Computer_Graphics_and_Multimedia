@@ -23,11 +23,9 @@ using namespace std;
 #define PLAYERTEXTURE 5
 #define FOODTEXTURE 6
 #define PI 3.14
-#define textureTest "textures/enemy.jpg"
 
 #ifndef DRAW
 #define DRAW
-
 void setColorPixel(string color);
 void setOffset(int newOffset);
 void drawTextured3dRectangle(int x, int y, int z, int width, int height, int length);

@@ -5,7 +5,6 @@
 #include"food.h"
 #include"enemy.h"
 #include"light.h"
-
 //-----------------------------------MAP SIZE-----------------------------------//
 #define COLUMNS 10
 #define ROWS 10
@@ -35,6 +34,13 @@ int anglealpha=90;
 int anglebeta=30;
 int radiusObserver=450;
 float zoom = 2;
+char PATHTEXTUREFILE[] = "textures/path.jpg";
+char WALLTEXTUREFILE[] = "textures/wall.jpg";
+char CENTERWALLTEXTUREFILE[] = "textures/centerwall.jpg";
+char BASEPATHTEXTUREFILE[] = "textures/basepath.jpg";
+char ENEMYTEXTUREFILE[] = "textures/enemy.jpg";
+char FOODTEXTUREFILE[] = "textures/food.jpg";
+char PLAYERTEXTUREFILE[] = "textures/player.jpg";
 //-----------------------------------MAIN-----------------------------------//
 int main(int argc, char *argv[]) {
 //-----------------------------------SET UP GAME-----------------------------------//
@@ -68,19 +74,19 @@ int main(int argc, char *argv[]) {
     glMatrixMode(GL_PROJECTION);
     gluOrtho2D(0,WIDTH-1,HEIGHT-1,0);
     glBindTexture(GL_TEXTURE_2D,PATHTEXTURE);
-    LoadTexture("textures/path.jpg",64);
+    LoadTexture(PATHTEXTUREFILE,64);
     glBindTexture(GL_TEXTURE_2D,WALLTEXTURE);
-    LoadTexture("textures/wall.jpg",64);
+    LoadTexture(WALLTEXTUREFILE,64);
     glBindTexture(GL_TEXTURE_2D,ENEMYTEXTURE);
-    LoadTexture("textures/enemy.jpg",64);
+    LoadTexture(ENEMYTEXTUREFILE,64);
     glBindTexture(GL_TEXTURE_2D,CENTERWALLTEXTURE);
-    LoadTexture("textures/centerwall.jpg",64);
+    LoadTexture(CENTERWALLTEXTUREFILE,64);
     glBindTexture(GL_TEXTURE_2D,FOODTEXTURE);
-    LoadTexture("textures/food.jpg",64);
+    LoadTexture(FOODTEXTUREFILE,64);
     glBindTexture(GL_TEXTURE_2D,BASEPATHTEXTURE);
-    LoadTexture("textures/basepath.jpg",64);
+    LoadTexture(BASEPATHTEXTUREFILE,64);
     glBindTexture(GL_TEXTURE_2D,PLAYERTEXTURE);
-    LoadTexture("textures/player.jpg",64);
+    LoadTexture(PLAYERTEXTUREFILE,64);
     glutMainLoop();
     return 0;
 }
@@ -105,6 +111,7 @@ void display(){
     enemy.drawEnemies(listOfEnemies);
     player.drawPlayer();
     player.light.draw();
+    set_material_id(FULVOUS_MATERIAL);
     glutSwapBuffers();
 }
 //-----------------------------------PLAYER KEYBOARD-----------------------------------//
@@ -166,7 +173,7 @@ void positionObserver(float alpha,float beta,int radi){
   upy=upy/modul;
   upz=upz/modul;
 
-  gluLookAt(x,y,z,    0.0, 0.0, 0.0,     upx,upy,upz);
+  gluLookAt(x,y,z,0.0, 0.0,0.0,upx,upy,upz);
 }
 
 void idle(){

@@ -48,7 +48,6 @@ void set_material(float r, float g, float b){
 }
 
 void set_material_id(int material_id){
-    int r,g,b;
     GLfloat material[4];
     switch (material_id) {
         case FULVOUS_MATERIAL:

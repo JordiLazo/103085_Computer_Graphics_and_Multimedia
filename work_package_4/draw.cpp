@@ -204,7 +204,7 @@ void ReadJPEG(char *filename,unsigned char **image,int *width, int *height)
   while (cinfo.output_scanline < cinfo.output_height) {
     jpeg_read_scanlines(&cinfo, buffer, 1);
 
-    for(j=0;j<cinfo.output_width*cinfo.output_components;j++)
+    for(j=0;j<(int)cinfo.output_width*cinfo.output_components;j++)
       {
 	(*image)[i]=buffer[0][j];
 	i++;
@@ -216,10 +216,6 @@ void ReadJPEG(char *filename,unsigned char **image,int *width, int *height)
   jpeg_finish_decompress(&cinfo);
 }
 
-
-
-/*--------------------------------------------------------*/
-/*--------------------------------------------------------*/
 void LoadTexture(char *filename,int dim)
 {
   unsigned char *buffer;

@@ -25,7 +25,6 @@ void Enemy::drawEnemies(list<Enemy> listOfEnemies){
     for(enemy = listOfEnemies.begin(); enemy != listOfEnemies.end(); ++enemy){
         setTexture(ENEMYTEXTURE);
         drawTextured3dRectangle(enemy->x,0,enemy->y,enemy->pixelSizeEnemy,enemy->pixelSizeEnemy,enemy->pixelSizeEnemy);
-        set_material_id(FULVOUS_MATERIAL);
         //draw3dRectangle(enemy->x,0,enemy->y,enemy->pixelSizeEnemy,enemy->pixelSizeEnemy,enemy->pixelSizeEnemy);
     }
 }
