@@ -7,8 +7,8 @@
 #include"light.h"
 
 //-----------------------------------MAP SIZE-----------------------------------//
-#define COLUMNS 15
-#define ROWS 15
+#define COLUMNS 10
+#define ROWS 10
 //-----------------------------------WINDOW SIZE-----------------------------------//
 #define WIDTH 1400
 #define HEIGHT 700
@@ -67,11 +67,10 @@ int main(int argc, char *argv[]) {
     glutIdleFunc(idle);
     glMatrixMode(GL_PROJECTION);
     gluOrtho2D(0,WIDTH-1,HEIGHT-1,0);
-    glBindTexture(GL_TEXTURE_2D,BASEPATHTEXTURE);
+    glBindTexture(GL_TEXTURE_2D,PATHTEXTURE);
     LoadTexture("textures/path.jpg",64);
-    glBindTexture(GL_TEXTURE_2D,CENTERWALLTEXTURE);
+    glBindTexture(GL_TEXTURE_2D,WALLTEXTURE);
     LoadTexture("textures/wall.jpg",64);
-    /*
     glBindTexture(GL_TEXTURE_2D,ENEMYTEXTURE);
     LoadTexture("textures/enemy.jpg",64);
     glBindTexture(GL_TEXTURE_2D,CENTERWALLTEXTURE);
@@ -82,7 +81,6 @@ int main(int argc, char *argv[]) {
     LoadTexture("textures/basepath.jpg",64);
     glBindTexture(GL_TEXTURE_2D,PLAYERTEXTURE);
     LoadTexture("textures/player.jpg",64);
-    */
     glutMainLoop();
     return 0;
 }

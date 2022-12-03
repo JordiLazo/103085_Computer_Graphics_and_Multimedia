@@ -23,6 +23,7 @@ using namespace std;
 #define PLAYERTEXTURE 5
 #define FOODTEXTURE 6
 #define PI 3.14
+#define textureTest "textures/enemy.jpg"
 
 #ifndef DRAW
 #define DRAW

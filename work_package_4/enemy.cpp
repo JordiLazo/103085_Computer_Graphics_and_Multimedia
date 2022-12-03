@@ -23,10 +23,10 @@ void insertEnemies(int pixelSize, float pixelSizePlayer,Position position){
 void Enemy::drawEnemies(list<Enemy> listOfEnemies){
     std::list<Enemy>::iterator enemy;
     for(enemy = listOfEnemies.begin(); enemy != listOfEnemies.end(); ++enemy){
-        //setTexture(ENEMYTEXTURE);
-        //drawTextured3dRectangle(enemy->x,0,enemy->y,enemy->pixelSizeEnemy,enemy->pixelSizeEnemy,enemy->pixelSizeEnemy);
+        setTexture(ENEMYTEXTURE);
+        drawTextured3dRectangle(enemy->x,0,enemy->y,enemy->pixelSizeEnemy,enemy->pixelSizeEnemy,enemy->pixelSizeEnemy);
         set_material_id(FULVOUS_MATERIAL);
-        draw3dRectangle(enemy->x,0,enemy->y,enemy->pixelSizeEnemy,enemy->pixelSizeEnemy,enemy->pixelSizeEnemy);
+        //draw3dRectangle(enemy->x,0,enemy->y,enemy->pixelSizeEnemy,enemy->pixelSizeEnemy,enemy->pixelSizeEnemy);
     }
 }
 

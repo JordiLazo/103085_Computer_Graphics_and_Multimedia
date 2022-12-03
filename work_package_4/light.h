@@ -12,7 +12,6 @@ using namespace std;
 #define RED_CRAYOLA_MATERIAL -2
 #define DARK_GREEN_MATERIAL -3
 
-// parameter: GL_AMBIENT, GL_SPECULAR, GL_DIFFUSE
 void set_lighting_color(int light_id, int parameter, int color);
 
 void set_light_position(int light_id, int x, int y, int z);

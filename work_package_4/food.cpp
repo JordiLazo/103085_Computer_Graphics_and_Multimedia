@@ -27,9 +27,9 @@ void Food::drawFood(int pixelSize){
     float foodSize = pixelSize/2;
     list<Food>::iterator itemFood;
     for (itemFood = foodList.begin(); itemFood != foodList.end(); ++itemFood){
-        set_material_id(DARK_GREEN_MATERIAL);
-        draw3dRectangle(itemFood->x, 0,itemFood->y, foodSize, foodSize, foodSize);
-        //setTexture(FOODTEXTURE);
-        //drawTextured3dRectangle(itemFood->x, 0,itemFood->y, foodSize, foodSize, foodSize);
+        //set_material_id(DARK_GREEN_MATERIAL);
+        //draw3dRectangle(itemFood->x, 0,itemFood->y, foodSize, foodSize, foodSize);
+        setTexture(FOODTEXTURE);
+        drawTextured3dRectangle(itemFood->x, 0,itemFood->y, foodSize, foodSize, foodSize);
     }
 }
