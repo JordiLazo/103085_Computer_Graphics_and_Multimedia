@@ -59,7 +59,6 @@ int main(int argc, char *argv[]) {
     player.createPlayer(pixelSize, pixelSize-(COLUMNS/4), map, randomPositionPlayer);
     player.light = Light();
     player.light.setDirectionCharacterLight(UP);
-    player.light.setCharacterLight(player.x, pixelSize, player.y);
     positionAmbientLight[0]=0; positionAmbientLight[1]=0; positionAmbientLight[2]=0; positionAmbientLight[3]=0;
     colorAmbientLight[0]=0.95; colorAmbientLight[1]= 0.65; colorAmbientLight[2]=0.09; colorAmbientLight[3]=1.0;
     colorLight[0]=1.0; colorLight[1]=1.0; colorLight[2]=1.0; colorLight[3]=1;
