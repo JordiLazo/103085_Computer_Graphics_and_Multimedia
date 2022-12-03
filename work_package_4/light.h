@@ -18,7 +18,6 @@ void set_lighting_color(int light_id, int parameter, int color);
 void set_light_position(int light_id, int x, int y, int z);
 void set_directional_light(int light_id, int x, int y, int z);
 
-void set_material(float r, float g, float b);
 void set_material_id(int material_id);
 
 double scale_l(int input);

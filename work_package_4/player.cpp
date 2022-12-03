@@ -16,8 +16,9 @@ void Player::createPlayer(int pixelSize, float pixelSizePlayer, Map map, Positio
 void Player::drawPlayer(){
     //setTexture(PLAYERTEXTURE);
     //drawTextured3dRectangle(this->x,0,this->y,this->pixelSizePlayer,this->pixelSizePlayer,this->pixelSizePlayer);
-    set_material_id(RED_CRAYOLA_MATERIAL);
-    drawSphere3d(pixelSizePlayer / 2, (int) x + pixelSizePlayer/2, pixelSizePlayer/2,(int) y + pixelSizePlayer/2);
+    setColorPixel("YELLOW");
+    draw3dRectangle(this->x,0,this->y,this->pixelSizePlayer,this->pixelSizePlayer,this->pixelSizePlayer);
+    //drawSphere3d(pixelSizePlayer / 2, (int) x + pixelSizePlayer/2, pixelSizePlayer/2,(int) y + pixelSizePlayer/2);
 }
 
 void Player::handleKeyboard(int key){

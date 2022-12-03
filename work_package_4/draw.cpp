@@ -74,8 +74,58 @@ void drawTextured3dRectangle(int x, int y, int z, int width, int height, int len
     glEnd();
     glDisable(GL_TEXTURE_2D);
 }
+void draw3dRectangle(int x, int y, int z, int width, int height, int length){
+    setColorPixel(BLACK);
+    glNormal3f(0,1,0);
+    glBegin(GL_QUADS);
+    setHeight(height);
+    glVertex3i(offset+x, raised+y, offset+z+length);
+    glVertex3i(offset+x+width, raised+y, offset+z+length);
+    glVertex3i(offset+x+width, raised+y, offset+z);
+    glVertex3i(offset+x, raised+y, offset+z);
+    glEnd();
 
-void drawSphere3d(int radius, int x, int y, int z){
+    glNormal3f(1,0,0);
+    setColorPixel(BLACK);
+    glBegin(GL_QUADS);
+    setHeight(0);
+    glVertex3i(offset+x+width, raised+y+height, offset+z);
+    glVertex3i(offset+x+width, raised+y+height, offset+z+length);
+    glVertex3i(offset+x+width, raised+y, offset+z+length);
+    glVertex3i(offset+x+width, raised+y, offset+z);
+    glEnd();
+
+    glNormal3f(0,0,1);
+    setColorPixel(BLACK);
+    glBegin(GL_QUADS);
+    setHeight(0);
+    glVertex3i(offset+x+width, raised+y, offset+z+length);
+    glVertex3i(offset+x+width, raised+y+height, offset+z+length);
+    glVertex3i(offset+x, raised+y+height, offset+z+length);
+    glVertex3i(offset+x, raised+y, offset+z+length);
+    glEnd();
+
+    glNormal3f(-1,0,0);
+    setColorPixel(BLACK);
+    glBegin(GL_QUADS);
+    setHeight(0);
+    glVertex3i(offset+x, raised+y, offset+z+length);
+    glVertex3i(offset+x, raised+y+height, offset+z+length);
+    glVertex3i(offset+x, raised+y+height, offset+z);
+    glVertex3i(offset+x, raised+y, offset+z);
+    glEnd();
+
+    glNormal3f(0,0,-1);
+    setColorPixel(BLACK);
+    glBegin(GL_QUADS);
+    setHeight(0);
+    glVertex3i(offset+x, raised+y, offset+z);
+    glVertex3i(offset+x, raised+y+height, offset+z);
+    glVertex3i(offset+x+width, raised+y+height, offset+z);
+    glVertex3i(offset+x+width, raised+y, offset+z);
+    glEnd();
+}
+void draw3dSphere(int radius, int x, int y, int z){
     glPushMatrix();
         glTranslatef(x+offset,y,z+offset);
         glutSolidSphere(radius, 20, 20);

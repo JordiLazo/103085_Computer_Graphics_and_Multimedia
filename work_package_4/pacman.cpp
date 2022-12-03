@@ -51,7 +51,6 @@ int main(int argc, char *argv[]) {
     player.light.color = WHITE_LIGHT;
     player.light.set_direction(-1,0,0);
     player.light.set_position(player.x, pixelSize, player.y);
-    printf("sdfsf: %f",player.x);
 //-----------------------------------OPEN GL-----------------------------------//
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
@@ -108,7 +107,6 @@ void display(){
     enemy.drawEnemies(listOfEnemies);
     player.drawPlayer();
     player.light.draw();
-    set_material(1.0, 1.0, 1.0);
     glutSwapBuffers();
 }
 //-----------------------------------PLAYER KEYBOARD-----------------------------------//
