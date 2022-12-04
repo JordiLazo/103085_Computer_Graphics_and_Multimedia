@@ -86,7 +86,7 @@ void Player::createMove(long currentTime){
             }
         }
     }
-    this->light.setCharacterLight((int)this->x, (int)this->pixelSize+10, (int)this->y);
+    this->spotlight.setCharacterLight((int)this->x - 400, (int)this->pixelSize+10,(int)this->y-400);
 }
 
 bool Player::checkUpMove(int key){

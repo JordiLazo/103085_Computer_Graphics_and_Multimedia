@@ -1,14 +1,14 @@
 #include "player.h"
 
 Player::Player(){}
-void Player::createPlayer(int pixelSize, float pixelSizePlayer, Map map){
+void Player::createPlayer(int pixelSize, float pixelSizePlayer, Map map, Position startPosition){
     this->state = STILL;
     this->speed = 100.0;
     this->pixelSize = pixelSize;
     this->map = map;
     this->pixelSizePlayer = pixelSizePlayer;
-    this->currentPositionX = this->startPosition(this->map).x;
-    this->currentPositionY = this->startPosition(this->map).y;
+    this->currentPositionX = startPosition.x;
+    this->currentPositionY = startPosition.y;
     this->centerPixel = (pixelSize/2) - (pixelSizePlayer/2);
     this->x = this->currentPositionX*pixelSize + this->centerPixel;
     this->y = this->currentPositionY*pixelSize + this->centerPixel;
@@ -16,21 +16,6 @@ void Player::createPlayer(int pixelSize, float pixelSizePlayer, Map map){
 void Player::drawPlayer(){
     setColorPixel("YELLOW");
     drawSquarePixel(this->x,this->y,this->pixelSizePlayer);
-}
-
-Position Player::startPosition(Map map){
-    this->map = map;
-    srand(clock());
-    bool validPosition = false;
-    while (!validPosition) {
-        int x = rand() % this->map.rows;
-        int y = rand() % this->map.columns;
-        if (this->map.array[x][y] == PATH){
-            validPosition = true;
-            return Position(y, x);
-        }
-    }
-    return Position(10,10);
 }
 
 void Player::handleKeyboard(int key){

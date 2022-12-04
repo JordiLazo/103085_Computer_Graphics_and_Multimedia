@@ -28,6 +28,7 @@ public:
     Map();
     Map(int columnsMap, int rowsMap);
     Position randomBasePosition();
+    Position randomBasePositionPlayer();
     Position exitBasePostion();
 //-------DRAW MAP-------//
     void drawMap(int pixelSize);

@@ -52,6 +52,18 @@ Position Map::randomBasePosition(){
     }
     return Position(10,10);
 }
+Position Map::randomBasePositionPlayer(){
+    bool validPosition = false;
+    while (!validPosition) {
+        int x = rand() % this->rows;
+        int y = rand() % this->columns;
+        if (this->array[x][y] == PATH){
+            validPosition = true;
+            return Position(y, x);
+        }
+    }
+    return Position(-1,0);
+}
 Position Map::exitBasePostion(){
     return this->positionExitBasePostion;
 }

@@ -34,7 +34,7 @@ class Player {
     bool validMove;
     float vx,vy; //-- Velocity vector
     long timeRemaining;
-    Light light;
+    Spotlight spotlight;
 //-----------------------------------FUNCTIONS-----------------------------------//
     Player();
     void createPlayer(int pixelSize, float pixelSizePlayer,Map map, Position startingPosition);

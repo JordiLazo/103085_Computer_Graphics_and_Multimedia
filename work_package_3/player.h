@@ -34,7 +34,7 @@ class Player {
     long timeRemaining;
 //-----------------------------------FUNCTIONS-----------------------------------//
     Player();
-    void createPlayer(int pixelSize, float pixelSizePlayer,Map map);
+    void createPlayer(int pixelSize, float pixelSizePlayer,Map map,Position position);
     void drawPlayer();
     Position startPosition(Map map);
     void handleKeyboard(int key);

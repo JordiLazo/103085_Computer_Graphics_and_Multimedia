@@ -6,8 +6,8 @@
 #include"enemy.h"
 
 //-----------------------------------MAP SIZE-----------------------------------//
-#define COLUMNS 20
-#define ROWS 20
+#define COLUMNS 13
+#define ROWS 13
 //-----------------------------------WINDOW SIZE-----------------------------------//
 #define WIDTH 1400
 #define HEIGHT 700
@@ -37,7 +37,8 @@ int main(int argc, char *argv[]) {
     food.insertFood(pixelSize,map);
     insertEnemies();
     map.printMap();
-    player.createPlayer(pixelSize, pixelSize-14, map);
+    Position randomPositionPlayer = map.randomBasePositionPlayer();
+    player.createPlayer(pixelSize, pixelSize-14, map, randomPositionPlayer);
 //-----------------------------------OPEN GL-----------------------------------//
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);

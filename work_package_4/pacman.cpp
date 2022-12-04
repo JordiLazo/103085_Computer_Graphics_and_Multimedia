@@ -6,8 +6,8 @@
 #include"enemy.h"
 #include"spotlight.h"
 //-----------------------------------MAP SIZE-----------------------------------//
-#define COLUMNS 10
-#define ROWS 10
+#define COLUMNS 13
+#define ROWS 13
 //-----------------------------------WINDOW SIZE-----------------------------------//
 #define WIDTH 1400
 #define HEIGHT 700
@@ -54,11 +54,10 @@ int main(int argc, char *argv[]) {
     map.insertMap(COLUMNS,ROWS);
     food.insertFood(pixelSize,map);
     insertEnemies();
-    map.printMap();
     Position randomPositionPlayer = map.randomBasePositionPlayer();
     player.createPlayer(pixelSize, pixelSize-(COLUMNS/4), map, randomPositionPlayer);
-    player.light = Light();
-    player.light.setDirectionCharacterLight(UP);
+    player.spotlight = Spotlight();
+    player.spotlight.setDirectionCharacterLight(UP);
     positionAmbientLight[0]=0; positionAmbientLight[1]=0; positionAmbientLight[2]=0; positionAmbientLight[3]=0;
     colorAmbientLight[0]=0.95; colorAmbientLight[1]= 0.65; colorAmbientLight[2]=0.09; colorAmbientLight[3]=1.0;
     colorLight[0]=1.0; colorLight[1]=1.0; colorLight[2]=1.0; colorLight[3]=1;
@@ -66,6 +65,7 @@ int main(int argc, char *argv[]) {
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowPosition(50,50);
+    setOffset(-400);
     glutInitWindowSize(WIDTH, HEIGHT);
     glutCreateWindow("Pacman Work Package 4");
     glEnable(GL_DEPTH_TEST);
@@ -115,7 +115,7 @@ void display(){
     food.drawFood(pixelSize);
     enemy.drawEnemies(listOfEnemies);
     player.drawPlayer();
-    player.light.illuminati();
+    player.spotlight.illuminati();
     glutSwapBuffers();
 }
 //-----------------------------------PLAYER KEYBOARD-----------------------------------//

@@ -1,9 +1,9 @@
-#ifndef LIGHT_H
-#define LIGHT_H
+#ifndef SPOTLIGHT
+#define SPOTLIGHT
 
-class Light {
+class Spotlight {
     public:
-    Light();
+    Spotlight();
     int lightX;
     int lightY;
     int lightZ;

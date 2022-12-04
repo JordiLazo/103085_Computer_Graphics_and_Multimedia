@@ -3,7 +3,7 @@
 Enemy::Enemy(){}
 void Enemy::createEnemy(int pixelSize, float pixelSizeEnemy,Map map){
     this->state = QUIET;
-    this->speed = 100.0;
+    this->speed = 200.0;
     this-> map = map;
     this->pixelSize = pixelSize;
     this->pixelSizeEnemy = pixelSizeEnemy;

@@ -49,6 +49,7 @@ Position Map::randomBasePositionEnemy(){
             return Position(y, x);
         }
     }
+    return Position(-1,0);
 }
 Position Map::randomBasePositionPlayer(){
     bool validPosition = false;
@@ -60,6 +61,7 @@ Position Map::randomBasePositionPlayer(){
             return Position(y, x);
         }
     }
+    return Position(-1,0);
 }
 Position Map::exitBasePostion(){
     return this->positionExitBasePostion;
