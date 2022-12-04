@@ -38,19 +38,19 @@ The generated map has to fulfill the following requirements:
 <br>
 
 ## Work package 2
-### Task 1. Inclusion of food elements to the map 
+### Task 1: Inclusion of food elements to the map 
 * At the beginning of the game, each corridor-type square contains a food element.
 * The room at the center of the map (the starting point for enemies) does not contain food.
 * When the main character moves to a square containing food, it eats the food element so that the food element disappears from the square.
 * A food element can be represented as a little square located at the center of the square.
-### Task 2. Inclusion and animation of the main character 
+### Task 2: Inclusion and animation of the main character 
 Some details are given next: 
 * The main character can simply be represented as a square or a circle.
 * Its objective is to eat all the food elements in the map.
 * The main character moves from the center of a square to the center of a contiguous one. Movements are indicated through the keyboard.
 * Its movement must be smooth and implemented using variable frame rate.
 * You can decide which its starting point in the map is.
-### Task 3. Inclusion and animation of enemy characters 
+### Task 3: Inclusion and animation of enemy characters 
 * An enemy character can simply be represented as a square or a circle.
 * Its objective is to collide against the main character.
 * Its movement must be smooth and implemented using variable frame rate.
@@ -62,7 +62,7 @@ Some details are given next:
 <br>
 
 ## Work package 3
-### Task 1. Inclusion of 3D graphics to the game 
+### Task 1: Inclusion of 3D graphics to the game 
 * It has to be possible to interactively modify the observer position employing the keyboard. The user has to be able to position the viewer at any point around the scene (even below it).
 * Set polygon drawing mode so that it only fills the polygons that are facing towards the observer. This will help you to identify polygons that are not properly orientated. This can be done through the following procedure calls: glPolygonMode(GL_FRONT,GL_FILL); glPolygonMode(GL_BACK,GL_LINE);
 * You can represent the game characters as a sphere. The procedure gluSphere can be useful to you.
@@ -73,11 +73,11 @@ Some details are given next:
 <br>
 
 ## Work package 4
-### Task 1. Inclusion of lighting effects  
+### Task 1: Inclusion of lighting effects  
 * Requirement. Include a light source providing ambient light. The intensity of this light source has to be low. This light source is required to avoid polygons not lighted by some other light source from appearing completely black.
 * Requirement. Include a directional light source in front of the main character. In this way we will simulate it carries a flashlight.
 * Optional: add a (small) flashlight to each of the enemy characters.
-### Task 2. Implement the logic for the end of a game 
+### Task 2: Implement the logic for the end of a game 
 * Add the required code so that the game ends properly. For instance, if the main character succeeds in eating all the food elements, you can display a “You win message”, otherwise a “You lose” text can be printed.
 ### The result of work package 4 is:
 <img src="./media/wp_4.png" width="500" height="300" alt="Result of work package 4" title="Result of work package 4" style="display: block; margin: 0 auto"/>
