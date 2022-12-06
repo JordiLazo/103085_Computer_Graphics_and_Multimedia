@@ -84,21 +84,36 @@ Some details are given next:
 
 ## How to play (UNIX)
 In order to compile and play the video game the next steps has to follow:
-
-1. Compile the code of one of the four work package with the following code:
+1. Install make with this comamnd:
+```
+sudo apt install make
+```
+2. Install g++ with this comamnd:
+```
+sudo apt install g++
+```
+3. Install GLUT library with this comamnd:
+```
+sudo apt-get install freeglut3-dev
+```
+4. Install LIBJPEG with this comamnd:
+```
+sudo apt-get install -y libjpeg-dev
+```
+5. Compile the code of one of the four work package with the following code:
 ```
 make all pacman
 ```
 **NOTE**: some libraries will be required to install in order to run this command.
 
-2. Commands of the keyboard to move character:
+6. Commands of the keyboard to move character:
 ```
 Move UP: ↑ (up arrow)
 Move DOWN: ↓ (down arrow)
 Move RIGHT: → (right arrow)
 Move LEFT: ← (left arrow)
 ```
-3. Commands of the keyboard to move the camera:
+7. Commands of the keyboard to move the camera:
 ```
 + Zoom == "Q"
 - Zoom = "E"
@@ -107,7 +122,7 @@ Rotate DOWN = "S"
 Rotate RIGHT = "A"
 Rotate LEFT = "D"
 ```
-4. Auxiliar commands:
+8. Auxiliar commands:
 ```
 Close WINDOW/GAME = "ESC"
 ```
